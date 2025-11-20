@@ -14,6 +14,9 @@ const menus = `
         <li class="nav-item">
             <a class="nav-link" href="cursojq.html">cursojq</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="usuariojq.html">usuariojq</a>
+        </li>
       </ul>
 `;
 

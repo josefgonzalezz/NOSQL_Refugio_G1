@@ -89,12 +89,3 @@ document.getElementById("cursoFormulario").addEventListener('submit', async e =>
 
 cargarDatos();
 
-// const CursoSchema = new mongoose.Schema(
-//     {
-//         //id: { type: Number, required: true, unique: true},
-//         id: { type: Number},
-//         nombre: { type: String},
-//         descripcion: { type: String},
-//         estado: { type: String}
-//     }
-// );

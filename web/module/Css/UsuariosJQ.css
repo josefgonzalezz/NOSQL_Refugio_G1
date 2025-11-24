@@ -1,0 +1,31 @@
+:root{
+    --blanco: #ffffff;
+    --oscuro: #000;
+    --Azulrey: #0e1f53;
+    --Celeste: #62ABD9;
+    --Azulmedio: #032CA6;
+    --Gris: #D9D9D9;
+    --Morado: #E0A8E6;
+    --Contraste : #F05050;
+    --Fuente-Principal: 3.8rem; 
+
+    --negro:#0D0D0D;
+    --gris4:#595959;
+    --gris3:#595959;
+    --gris2:#8C8C8C;
+    --gris1:#BFBFBF;
+
+    --bg: #000000;
+    --clr-1: #00c2ff;
+    --clr-2: #33ff8c;
+    --clr-3: #ffc640;
+    --clr-4: #e54cff;
+ 
+    --blur: 1rem;
+    --fs: clamp(3rem, 8vw, 7rem);
+    --ls: clamp(-1.75px, -0.25vw, -3.5px);
+}
+
+.header_section{
+    background-color: #000000;
+}

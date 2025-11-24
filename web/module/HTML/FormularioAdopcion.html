@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Gestión de Usuarios</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>        
+<!-- frame work de uiKit -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.24.2/dist/css/uikit.min.css" />
+    <link href="../Css/Usuarios.css" rel="stylesheet">
+
+<!-- UIkit JS -->
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.24.2/dist/js/uikit.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.24.2/dist/js/uikit-icons.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center align-items-center g-2">
+            <div class="col-auto">
+                <h1 class="mt-4">Gestión de Adopciones</h1>
+            </div>
+        </div>
+  <a href="Adopciones.html" class="nav-sitio-item"><--Regresar</a>
+
+        <div class="container">
+
+            <button
+                type="button"
+                class="Secciones"
+                data-bs-toggle="modal"
+                data-bs-target="#modalAdopcion"
+            >
+                Registrar Adopción
+            </button>
+            
+            <div
+                class="modal fade"
+                id="modalAdopcion"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="modalTitleAdopcion"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalTitleAdopcion">
+                                Formulario de Adopción
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+
+                                <form id="adopcionFormulario">
+                                    <input type="hidden" id="idAdopcion" name="idAdopcion">
+
+                                    <div class="mb-3">
+                                        <label for="idAnimal" class="form-label">ID Animal</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            name="idAnimal"
+                                            id="idAnimal"
+                                            aria-describedby="helpIdAnimal"
+                                            placeholder="Ingrese el ID del Animal"
+                                            required
+                                        />
+                                        <small id="helpIdAnimal" class="form-text text-muted">Referencia al ID del animal a adoptar</small>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="idCliente" class="form-label">ID Cliente</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            name="idCliente"
+                                            id="idCliente"
+                                            aria-describedby="helpIdCliente"
+                                            placeholder="Ingrese el ID del Cliente"
+                                            required
+                                        />
+                                        <small id="helpIdCliente" class="form-text text-muted">Referencia al ID del cliente/usuario</small>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="fechaAdopcion" class="form-label">Fecha de Adopción</label>
+                                        <input
+                                            type="date"
+                                            class="form-control"
+                                            name="fechaAdopcion"
+                                            id="fechaAdopcion"
+                                            aria-describedby="helpFechaAdopcion"
+                                            required
+                                        />
+                                        <small id="helpFechaAdopcion" class="form-text text-muted">Fecha en la que se registra la adopción</small>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="estado" class="form-label">Estado</label>
+                                        <select
+                                            class="form-select"
+                                            name="estado"
+                                            id="estado"
+                                            aria-describedby="helpEstado"
+                                            required
+                                        >
+                                            <option value="Pendiente" selected>Pendiente</option>
+                                            <option value="Completada">Completada</option>
+                                            <option value="Cancelada">Cancelada</option>
+                                        </select>
+                                        <small id="helpEstado" class="form-text text-muted">Estado actual de la adopción</small>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="observaciones" class="form-label">Observaciones</label>
+                                        <textarea
+                                            class="form-control"
+                                            name="observaciones"
+                                            id="observaciones"
+                                            rows="3"
+                                            aria-describedby="helpObservaciones"
+                                            placeholder="Ingrese observaciones adicionales"
+                                        ></textarea>
+                                        <small id="helpObservaciones" class="form-text text-muted">Notas o comentarios</small>
+                                    </div>
+
+                                    <div class="container d-flex justify-content-between">
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary"
+                                            id="btnSubmit"
+                                        >
+                                            Guardar
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="btn btn-warning"
+                                            id="btnCancelar"
+                                            style="display: none;"
+                                        >
+                                            Cancelar Edición
+                                        </button>
+
+                                        <button
+                                            type="reset"
+                                            class="btn btn-danger"
+                                        >
+                                            Limpiar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                            >
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                // Este script se puede dejar aquí ya que no depende de jQuery
+                var modalAdopcion = document.getElementById('modalAdopcion');
+                modalAdopcion.addEventListener('show.bs.modal', function (event) {
+                    // Lógica de modal si es necesaria
+                });
+            </script>
+
+        </div>
+
+
+        <div class="table-responsive mt-4">
+            <table class="uk-table uk-table-hover uk-table-divider uk-table-responsive tabla-estilo-usuarios">
+                <thead>
+                    <tr>
+                        <th scope="col">Id Adopción</th>
+                        <th scope="col">ID Animal</th>
+                        <th scope="col">ID Cliente</th>
+                        <th scope="col">Fecha Adopción</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Observaciones</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaDatos">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+
+    <script src="/web/js/Adopciones.js"></script>
+</body>
+</html>

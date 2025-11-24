@@ -163,6 +163,84 @@ body{
     }
 }
 
+
+
+
+
+/*Cards de animales*/
+
+.contenedor-flex {
+  margin-left: 150px;
+  margin-right: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+
+.item {
+  flex: 1;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 100%;
+  max-width: 18rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-title {
+  color: var(--azulOscuro);
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 14px;
+  color: var(--Negro);
+}
+
+.btnProducto {
+  background-color: var(--azulOscuro);
+  color: var(--Blanco);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.btnProducto:hover {
+  background-color: var(--Rojo);
+  color: var(--Blanco);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+}
+
+
+
+.Contendedor2{
+  background-color: var(--Azulrey);
+  border-radius: 20px 20px 20px 20px ;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
 /* Estilos para el btn de agregar */
 .Secciones{
     
@@ -225,7 +303,7 @@ button:hover:before, button:hover:after {
 .tabla-estilo-usuarios.uk-table-hover a {
     color: var(--VerdeMusgo);
     text-decoration: none;
-    font-size: 40px;
+    font-size: 20px;
     
 }
 .tabla-estilo-usuarios.uk-table-hover tbody tr:hover {
@@ -316,3 +394,4 @@ button:hover:before, button:hover:after {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+

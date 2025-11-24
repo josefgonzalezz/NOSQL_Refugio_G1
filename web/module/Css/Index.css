@@ -43,14 +43,14 @@ html {
 
 .header{
 
-    background-color: var(--VerdeMusgo);
+  
     width :auto;
     height: 100px;
 }
 
 body{
-    background-color: var(--blanco);
-    font-size: 16px; /* 1rem = 10px */
+   
+    font-size: 16px; 
     font-family: "Montserrat", serif;
     
 
@@ -303,6 +303,8 @@ h3{font-size: 1.8rem; text-align: center; }
     }
 }
 /*Termina NavBar*/
+
+
 
 
 
@@ -761,19 +763,79 @@ button:hover:before, button:hover:after {
 
 /* Termina Carrusel */
 /*Voluntariado*/
-
 .contenedorVoluntariado {
-   display: flex;
+    display: flex;
     align-items: center;
     gap: 40px;
-    max-width: auto;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-
-
 }
 
-.izquierda3{
+.izquierdaVoluntariado {
+    flex: 1;
+    width: auto;
+    height: auto;
+    background-color: var(--VerdeClaro);
+}
+
+.derechaVoluntariado {
+    flex: 2;
+    background-color: var(--VerdeMusgo); 
+    height: auto;
+    width: auto;
+    border-left: var(--VerdeClaro) solid 35px;
+    border-width: 20px;
+    margin-left: 0;
+    border-radius: 75px;
+    padding: 40px;
+}
+
+.derechaVoluntariado h1 {
+    font-size: 50px;
+    color: var(--blanco);
+    text-align: center; 
+    margin-bottom: 20px;
+}
+
+.derechaVoluntariado p{
+    font-size: 25px;
+    text-align: center;
+    color: var(--VerdeClaro);
+    margin: 20px auto;
+    max-width: 80%;
+    justify-content: center;
+}
+
+.BtnVoluntariado a {
+    text-decoration: none;
+    display: inline-block;
+}
+
+.BtnVoluntariado button {
+    color: var(--Verde3); 
+    background-color: var(--VerdeClaro); 
+    position: relative;
+    height: 60px;
+    font-size: 1.6em;
+    padding: 0 2em;
+    cursor: pointer;
+    outline: none;
+    border: none; 
+    margin: 30px auto; 
+    display: block; 
+    border-radius: 30px; 
+    transition: 300ms ease-in-out; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.BtnVoluntariado button:hover {
+    background-color: var(--blanco); 
+    color: var(--VerdeClaro); 
+}
+
+.izquierda3 {
     order: 1;
     flex: 1 1 auto;
     width: auto;
@@ -785,73 +847,47 @@ button:hover:before, button:hover:after {
     color: var(--Azulrey);
 }
 
-.izquierdaVoluntariado{
-    width: auto;
-    height: auto;
-    background-color: var(--VerdeClaro);
+/* RESPONSIVIDAD PARA MÓVILES */
+@media (max-width: 768px) {
     
+    .contenedorVoluntariado {
+        flex-direction: column;
+        padding: 10px;
+    }
 
-}
+    .izquierdaVoluntariado {
+        width: 100%;
+        order: 1;
+        margin-bottom: 20px;
+    }
 
+    .derechaVoluntariado {
+        width: 100%;
+        margin-left: 0;
+        order: 2;
+        height: auto;
+        padding: 25px 15px;
+        border-left: none;
+        border-width: 0;
+        border-radius: 15px;
+    }
 
+    .derechaVoluntariado h1 {
+        font-size: 35px;
+    }
 
-.derechaVoluntariado {
-    flex: 2; 
-    background-color: var(--VerdeMusgo); 
-    height: 500px;
-    width: 600px;
-   border-left:var(--VerdeClaro) solid 10px;
-   border-width: 20px;
-    margin-left: 520px;
-    border-top-left-radius: 75px;
-    border-bottom-left-radius: 75px;
-}
-.derechaVoluntariado h1 {
-    font-size: 50px;
-    color: var(--blanco);
-    text-align: center;   
-}
-.derechaVoluntariado p{
-font-size: 25px;
-text-align: center;
-color: var(--VerdeClaro);
-margin-left: 50px;
-margin-right: 50px;
-
-justify-content: center;
-}
-
-
-
-.BtnVoluntariado a {
- 
-    text-decoration: none;
-    display: inline-block;
-}
-
-.BtnVoluntariado button {
-   
-    color: var(--Verde3); 
-    background-color: var(--VerdeClaro); 
-    position: relative;
-    height: 60px;
-    font-size: 1.6em;
-    padding: 0 2em;
-    cursor: pointer;
-    outline: none;
-    border: none; 
-    margin-left: 500px;
-    margin-top: 50px;
-    border-radius: 30px; 
-    transition: 300ms ease-in-out; 
-}
-
-.BtnVoluntariado button:hover {
-    /* Cambia el color de fondo */
-    background-color: var(--blanco, #a8d540); 
+    .derechaVoluntariado p {
+        font-size: 18px;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
     
-    /* Cambia el color del texto a un color oscuro o el blanco, si es necesario */
-    color: var(--VerdeClaro); 
+    .BtnVoluntariado button {
+        font-size: 1.2em;
+        height: 50px;
+        margin: 20px auto; 
+    }
 }
 .derecha2 h1 {
     font-size: 50px;

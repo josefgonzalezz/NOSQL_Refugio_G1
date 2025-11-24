@@ -1,0 +1,318 @@
+:root{
+    --blanco: #ffffff;
+    --oscuro: #000;
+    --Azulrey: #0e1f53;
+    --VerdeMusgo: #274001;
+    --Verde3: #092601;
+    --Gris: #D9D9D9;
+    --Morado: #E0A8E6;
+    --VerdeClaro : #B6D982;
+    --Fuente-Principal: 3.8rem; 
+
+
+    --negro:#0D0D0D;
+    --gris4:#595959;
+    --gris3:#595959;
+    --gris2:#8C8C8C;
+    --gris1:#BFBFBF;
+
+    --bg: #000000;
+    --clr-1: #00c2ff;
+    --clr-2: #33ff8c;
+    --clr-3: #ffc640;
+    --clr-4: #e54cff;
+ 
+    --blur: 1rem;
+    --fs: clamp(3rem, 8vw, 7rem);
+    --ls: clamp(-1.75px, -0.25vw, -3.5px);
+}
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap");
+
+/* Ajustes generales para toda la página */
+html {
+    font-size: 62.5%; /* Facilita usar rem en medidas */
+    box-sizing: inherit; /* Permite que padding y border no afecten el tamaño total */
+    scroll-snap-type: y mandatory;
+
+}
+
+/* Aplica box-sizing a todos los elementos */
+*,*::before,*:after {
+    box-sizing: inherit;
+}
+
+.header{
+
+    background-color: var(--VerdeMusgo);
+    width :auto;
+    height: 100px;
+}
+
+body{
+    background-color: var(--blanco);
+    font-size: 16px; /* 1rem = 10px */
+    font-family: "Montserrat", serif;
+    
+
+
+}
+
+
+
+
+
+
+
+
+
+
+.nav-sitio-contenedor {
+    background-color: #274001; 
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+}
+
+.nav-sitio-enlaces {
+    display: flex;
+    gap: 2.5rem; 
+}
+
+.nav-sitio-item {
+    color: white;
+    text-decoration: none;
+    font-size: 35px;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease-in-out;
+    position: relative; /* Para el efecto de la línea inferior */
+}
+
+.nav-sitio-item:hover,
+.nav-sitio-item.activo {
+    color: #a8d540; /* Color de hover o del elemento activo */
+}
+
+/* Efecto de línea inferior al hacer hover */
+.nav-sitio-item::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #a8d540;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-sitio-item:hover::after,
+.nav-sitio-item.activo::after {
+    width: 100%;
+}
+
+
+.nav-sitio-boton-menu {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 5rem;
+    cursor: pointer;
+    display: none; /* Oculto por defecto en escritorio */
+}
+
+
+@media (max-width: 768px) {
+    
+    .nav-sitio-contenedor {
+        /* Asegura que la navegación ocupe todo el ancho */
+        padding: 1rem 1.5rem;
+    }
+
+    .nav-sitio-boton-menu {
+        display: block; /* Muestra el botón de hamburguesa */
+    }
+
+    /* Oculta los enlaces en dispositivos móviles por defecto */
+    .nav-sitio-enlaces {
+        position: absolute;
+        top: 100%; /* Justo debajo del navbar */
+        left: 0;
+        right: 0;
+        background-color: #385709; /* Fondo diferente para el menú desplegable */
+        flex-direction: column;
+        display: none; /* Oculto inicialmente con CSS */
+        width: 100%;
+        padding: 1rem 0;
+        z-index: 10;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Estilo para los enlaces apilados */
+    .nav-sitio-enlaces a {
+        text-align: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .nav-sitio-enlaces a:last-child {
+        border-bottom: none;
+    }
+
+    /* Clase que se activa con JavaScript para mostrar el menú */
+    .nav-sitio-enlaces.nav-sitio-visible {
+        display: flex;
+    }
+}
+
+/* Estilos para el btn de agregar */
+.Secciones{
+    
+    color: var(--blanco);
+    text-decoration: none;
+
+   }
+
+    button {
+    background-color: var(--VerdeMusgo);
+    color: #fff;
+    border: none;
+    position: relative;
+    height: 60px;
+    font-size: 1.6em;
+    padding: 0 2em;
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
+    border-radius: 30px; /* Added to make the button more rounded */
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente en el contenedor */
+    gap: 20px; /* Espacio entre los botones */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+}
+button:hover {
+    background: var(--VerdeClaro);
+    color: var(--VerdeClaro);
+}
+
+button:before, button:after {
+content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: var(--blanco);
+    transition: 400ms ease all;
+}
+
+button:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+}
+
+button:hover:before, button:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
+}
+
+
+/* Estilos para  la tabla  */
+
+.tabla-estilo-usuarios.uk-table-hover a {
+    color: var(--VerdeMusgo);
+    text-decoration: none;
+    font-size: 20px;
+    
+}
+.tabla-estilo-usuarios.uk-table-hover tbody tr:hover {
+    background-color: #f0f8e9; /* <-- Este valor cambia el color de fondo */
+    cursor: pointer;
+
+}
+
+/* Pie de página */
+  .footer {
+    background-color:var(--VerdeClaro);
+    color: var(--blanco);
+    height: 250px;
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .footer-left {
+    flex: 2;
+    margin-left: 2rem;
+    max-width: 400px;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    padding-left: 10px;
+    font-size: 2.5rem;
+  }
+  .footer-left p {
+  padding: auto;
+  }  
+  .footer-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    gap: 10px;
+    font-size: 2.5rem;
+  }
+  
+  .footer-center .address {
+    display: flex;
+    align-items: end;
+    gap: 2px;
+  
+  }
+  .footer-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    font-size: 2.5rem;
+  }
+  
+  .footer-right .contact {
+    display: flex;
+    align-items: center;
+  }
+  
+  .copyright {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2rem;
+    color: var(--blanco);
+  }
+  
+  /* Diseño responsive */
+  @media (max-width: 768px) {
+    .footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    
+    .footer-left, .footer-center, .footer-right {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .footer-right {
+        align-items: flex-start;
+    }
+}
+.profile-image {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

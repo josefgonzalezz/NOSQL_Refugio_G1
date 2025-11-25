@@ -3,7 +3,6 @@ const APIURL = "http://localhost:3000/api/adopcion/";
 let modoEdicion = false;
 let idEdicion = null;
 
-// Cargar la lista de adopciones en la tabla
 async function cargarDatos() {
     $.ajax({
         type: "GET",
@@ -12,20 +11,23 @@ async function cargarDatos() {
             const tbody = $("#tablaDatos");
             tbody.empty();
 
-            responseAdopciones.forEach(elementAdopcion => {
+            responseAdopciones.forEach(adopcion => {
+                const idAnimal = adopcion.idAnimal?._id || adopcion.idAnimal;
+                const idCliente = adopcion.idCliente?._id || adopcion.idCliente;
+
                 tbody.append(`
                     <tr>
-                        <td>${elementAdopcion._id}</td>
-                        <td>${elementAdopcion.idAnimal}</td>
-                        <td>${elementAdopcion.idCliente}</td>
-                        <td>${elementAdopcion.fechaAdopcion}</td>
-                        <td>${elementAdopcion.estado}</td>
-                        <td>${elementAdopcion.observaciones || ''}</td>
+                        <td>${adopcion._id}</td>
+                        <td>${idAnimal}</td>
+                        <td>${idCliente}</td>
+                        <td>${adopcion.fechaAdopcion}</td>
+                        <td>${adopcion.estado}</td>
+                        <td>${adopcion.observaciones || ''}</td>
                         <td>
-                            <button class="btn btn-primary btn-editar" data-id="${elementAdopcion._id}" data-bs-toggle="modal" data-bs-target="#modalAdopcion">
+                            <button class="btn btn-primary btn-editar" data-id="${adopcion._id}" data-bs-toggle="modal" data-bs-target="#modalAdopcion">
                                 Editar
                             </button>
-                            <button class="btn btn-danger btn-eliminar" data-id="${elementAdopcion._id}">
+                            <button class="btn btn-danger btn-eliminar" data-id="${adopcion._id}">
                                 Eliminar
                             </button>
                         </td>
@@ -40,7 +42,6 @@ async function cargarDatos() {
     });
 }
 
-// Guardar o actualizar adopción
 $("#adopcionFormulario").on("submit", function(e) {
     e.preventDefault();
 
@@ -53,62 +54,53 @@ $("#adopcionFormulario").on("submit", function(e) {
     };
 
     if (modoEdicion) {
-        // Actualizar
         $.ajax({
             type: "PUT",
             url: APIURL + idEdicion,
             data: JSON.stringify(datos),
             contentType: "application/json",
             success: function (response) {
-                console.log("Adopción actualizada:", response);
                 $("#adopcionFormulario")[0].reset();
                 cargarDatos();
                 cancelarEdicion();
-                // Cerrar modal después de actualizar
                 $("#modalAdopcion").modal('hide'); 
                 alert("Adopción actualizada exitosamente");
             },
             error: function(xhr, status, error) {
-                console.error("Error: ", error);
-                console.error("Error xhr: ", xhr.responseText);
+                console.error("Error al actualizar: ", error);
                 alert("Fallo la actualización de la adopción");
             }
         });
     } else {
-        // Crear
         $.ajax({
             type: "POST",
             url: APIURL,
             data: JSON.stringify(datos),
             contentType: "application/json",
             success: function (response) {
-                console.log("Adopción creada:", response);
                 $("#adopcionFormulario")[0].reset();
                 cargarDatos();
-                // Cerrar modal después de crear
                 $("#modalAdopcion").modal('hide'); 
                 alert("Adopción guardada exitosamente");
             },
             error: function(xhr, status, error) {
-                console.error("Error: ", error);
-                console.error("Error xhr: ", xhr.responseText);
+                console.error("Error al crear: ", error);
                 alert("Fallo la inserción de la adopción");
             }
         });
     }
 });
 
-// Evento para editar
+
 $(document).on("click", ".btn-editar", function() {
     const id = $(this).data("id");
-    
+
     $.ajax({
         type: "GET",
         url: APIURL + id,
         success: function (adopcion) {
-            // Llenar el formulario con los datos de la adopción
-            $("#idAnimal").val(adopcion.idAnimal);
-            $("#idCliente").val(adopcion.idCliente);
+            $("#idAnimal").val(adopcion.idAnimal?._id || adopcion.idAnimal);
+            $("#idCliente").val(adopcion.idCliente?._id || adopcion.idCliente);
             $("#fechaAdopcion").val(adopcion.fechaAdopcion);
             $("#estado").val(adopcion.estado);
             $("#observaciones").val(adopcion.observaciones);
@@ -118,8 +110,6 @@ $(document).on("click", ".btn-editar", function() {
             
             $("#btnSubmit").text("Actualizar");
             $("#btnCancelar").show();
-            
-            // Abrir el modal para edición (ya está manejado por el data-bs-target en el HTML)
         },
         error: function(xhr, status, error) {
             console.error("Error al cargar adopción: ", error);
@@ -128,7 +118,7 @@ $(document).on("click", ".btn-editar", function() {
     });
 });
 
-// Evento para eliminar
+
 $(document).on("click", ".btn-eliminar", function() {
     const id = $(this).data("id");
     
@@ -137,27 +127,23 @@ $(document).on("click", ".btn-eliminar", function() {
             type: "DELETE",
             url: APIURL + id,
             success: function (response) {
-                console.log("Adopción eliminada:", response);
                 cargarDatos();
                 alert("Adopción eliminada exitosamente");
             },
             error: function(xhr, status, error) {
-                console.error("Error: ", error);
-                console.error("Error xhr: ", xhr.responseText);
+                console.error("Error al eliminar: ", error);
                 alert("Error al eliminar la adopción");
             }
         });
     }
 });
 
-// Cancelar edición
+
 $("#btnCancelar").on("click", function() {
     cancelarEdicion();
-    // Opcional: Cerrar el modal al cancelar
     $("#modalAdopcion").modal('hide'); 
 });
 
-// Resetear formulario y modo de edición
 function cancelarEdicion() {
     modoEdicion = false;
     idEdicion = null;
@@ -166,17 +152,16 @@ function cancelarEdicion() {
     $("#btnCancelar").hide();
 }
 
-// Asegurarse de limpiar el formulario al abrir el modal para "Agregar"
-$('#modalAdopcion').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) // Botón que disparó el modal
-    var id = button.data('id')
 
-    // Si no tiene data-id (es el botón "Registrar Adopción"), es modo creación
+$('#modalAdopcion').on('show.bs.modal', function (event) {
+    const button = $(event.relatedTarget);
+    const id = button.data('id');
+
     if (!id) {
         cancelarEdicion();
     }
-})
+});
 
-// Cargar datos al iniciar
+
 cargarDatos();
 $("#btnCancelar").hide();

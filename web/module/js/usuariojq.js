@@ -79,7 +79,6 @@ $(document).ready(function() {
                 cargarDatos();
                 cancelarEdicion(); 
                 alert(`Usuario ${mensajeExito} exitosamente`);
-                // Opcional: Cerrar el modal si aplica
                 $('#modalId').modal('hide'); 
             },
             error: function(xhr, status, error) {
@@ -109,7 +108,6 @@ $(document).ready(function() {
                 $("#btnSubmit").text("Actualizar");
                 $("#btnCancelar").show();
                 
-                // Abrir el modal
                 $('#modalId').modal('show');
                 
                 $('html, body').animate({
@@ -148,8 +146,6 @@ $(document).ready(function() {
         cancelarEdicion();
         $('#modalId').modal('hide');
     });
-
-    // Inicialización al cargar el DOM
     cargarDatos(); 
     $("#btnCancelar").hide(); 
 });

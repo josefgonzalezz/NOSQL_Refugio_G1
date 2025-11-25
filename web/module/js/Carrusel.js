@@ -7,22 +7,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const dots = document.querySelectorAll('.dot');
 
     let counter = 0;
-    const size = carouselImages[0].clientWidth; // Ancho de una imagen
+    const size = carouselImages[0].clientWidth;
     let autoSlideInterval;
 
-    // Ajustar el slide inicial
     carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
 
-    // Función para actualizar los indicadores de puntos
     function updateDots() {
         dots.forEach(dot => dot.classList.remove('active'));
         dots[counter].classList.add('active');
     }
 
-    // Navegar a la siguiente imagen
     function nextSlide() {
         if (counter >= carouselImages.length - 1) {
-            counter = 0; // Vuelve al inicio
+            counter = 0; 
         } else {
             counter++;
         }
@@ -30,10 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDots();
     }
 
-    // Navegar a la imagen anterior
     function prevSlide() {
         if (counter <= 0) {
-            counter = carouselImages.length - 1; // Va al final
+            counter = carouselImages.length - 1; 
         } else {
             counter--;
         }
@@ -41,48 +37,43 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDots();
     }
 
-    // Función para iniciar el pase automático
+  
     function startAutoSlide() {
-        autoSlideInterval = setInterval(nextSlide, 3000); // Cambia cada 3 segundos
+        autoSlideInterval = setInterval(nextSlide, 3000); 
     }
 
-    // Función para detener el pase automático
+   
     function stopAutoSlide() {
         clearInterval(autoSlideInterval);
     }
 
-    // Event Listeners para botones
     nextBtn.addEventListener('click', () => {
-        stopAutoSlide(); // Detiene el auto-slide al interactuar
+        stopAutoSlide();
         nextSlide();
-        startAutoSlide(); // Reinicia el auto-slide
+        startAutoSlide();
     });
 
     prevBtn.addEventListener('click', () => {
-        stopAutoSlide(); // Detiene el auto-slide al interactuar
+        stopAutoSlide(); 
         prevSlide();
-        startAutoSlide(); // Reinicia el auto-slide
+        startAutoSlide();
     });
 
-    // Event Listeners para puntos
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            stopAutoSlide(); // Detiene el auto-slide al interactuar
+            stopAutoSlide();
             counter = index;
             carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
             updateDots();
-            startAutoSlide(); // Reinicia el auto-slide
+            startAutoSlide();
         });
     });
 
-    // Iniciar el pase automático al cargar la página
     startAutoSlide();
 
-    // Detener y reiniciar el pase automático si el usuario interactúa con el carrusel directamente
     carouselSlide.addEventListener('mouseenter', stopAutoSlide);
     carouselSlide.addEventListener('mouseleave', startAutoSlide);
 
-    // Actualizar el tamaño del slide si la ventana cambia de tamaño
     window.addEventListener('resize', () => {
         const newSize = carouselImages[0].clientWidth;
         carouselSlide.style.transform = 'translateX(' + (-newSize * counter) + 'px)';

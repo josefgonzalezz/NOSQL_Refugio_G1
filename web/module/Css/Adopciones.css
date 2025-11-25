@@ -394,4 +394,12 @@ button:hover:before, button:hover:after {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+.modal-dialog {
+    max-width: 600px; /* Ajusta según necesites */
+}
 
+.modal-body {
+    max-height: 70vh; /* Altura máxima visible */
+    overflow-y: auto; /* Activa el scroll interno */
+    padding-right: 10px; /* Evita que se corte el contenido */
+}

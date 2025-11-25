@@ -163,75 +163,396 @@ body{
     }
 }
 
-/* Estilos para el btn de agregar */
-.Secciones{
-    
-    color: var(--blanco);
-    text-decoration: none;
+/* ===================================
+   ESTILOS PARA FORMULARIO DE USUARIOS
+   =================================== */
 
-   }
-
-    button {
-    background-color: var(--VerdeMusgo);
-    color: #fff;
+/* Botón principal para agregar usuario */
+.boton-agregar-usuario-principal {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
     border: none;
+    padding: 14px 32px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.boton-agregar-usuario-principal:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.45);
+}
+
+.boton-agregar-usuario-principal:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.35);
+}
+
+/* Modal - Ventana principal */
+.ventana-modal-usuarios {
+    max-width: 600px;
+}
+
+.caja-contenido-modal-usuarios {
+    border-radius: 15px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+}
+
+/* Cabecera del modal */
+.cabecera-modal-usuarios {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 22px 28px;
+    border-bottom: none;
+}
+
+.titulo-formulario-usuarios {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.3px;
+}
+
+.boton-cierre-modal-blanco {
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+}
+
+.boton-cierre-modal-blanco:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Contenido del modal */
+.contenido-formulario-usuarios {
+    padding: 28px;
+    background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+    max-height: 65vh;
+    overflow-y: auto;
+}
+
+/* Scroll personalizado para el modal */
+.contenido-formulario-usuarios::-webkit-scrollbar {
+    width: 7px;
+}
+
+.contenido-formulario-usuarios::-webkit-scrollbar-track {
+    background: #e9ecef;
+    border-radius: 10px;
+}
+
+.contenido-formulario-usuarios::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-radius: 10px;
+}
+
+.contenido-formulario-usuarios::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+}
+
+/* Formulario */
+.formulario-gestion-usuarios {
+    margin-top: 5px;
+}
+
+.seccion-campo-usuario {
+    margin-bottom: 22px;
     position: relative;
-    height: 60px;
-    font-size: 1.6em;
-    padding: 0 2em;
-    cursor: pointer;
-    transition: 800ms ease all;
+}
+
+/* Etiquetas de campos */
+.etiqueta-campo-usuario {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    display: block;
+}
+
+/* Campos de entrada */
+.campo-texto-usuario {
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    padding: 11px 15px;
+    font-size: 0.98rem;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+}
+
+.campo-texto-usuario:focus {
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
     outline: none;
-    border-radius: 30px; /* Added to make the button more rounded */
+    background-color: #fff;
 }
 
-.button-container {
-    display: flex;
-    justify-content: center; /* Centra los botones horizontalmente en el contenedor */
-    gap: 20px; /* Espacio entre los botones */
-    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
-}
-button:hover {
-    background: var(--VerdeClaro);
-    color: var(--VerdeClaro);
+.campo-texto-usuario::placeholder {
+    color: #adb5bd;
+    font-style: italic;
 }
 
-button:before, button:after {
-content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 2px;
-    width: 0;
-    background: var(--blanco);
-    transition: 400ms ease all;
+.campo-texto-usuario:hover:not(:focus) {
+    border-color: #adb5bd;
 }
 
-button:after {
-    right: inherit;
-    top: inherit;
-    left: 0;
-    bottom: 0;
+/* Texto de ayuda */
+.ayuda-texto-campo {
+    color: #6c757d;
+    font-size: 0.84rem;
+    margin-top: 5px;
+    display: block;
+    font-style: italic;
 }
 
-button:hover:before, button:hover:after {
-    width: 100%;
-    transition: 800ms ease all;
+/* Contenedor de botones de acción */
+.contenedor-acciones-formulario {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 2px solid #dee2e6;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-
-/* Estilos para  la tabla  */
-
-.tabla-estilo-usuarios.uk-table-hover a {
-    color: var(--VerdeMusgo);
-    text-decoration: none;
-    font-size: 40px;
-    
-}
-.tabla-estilo-usuarios.uk-table-hover tbody tr:hover {
-    background-color: #f0f8e9; /* <-- Este valor cambia el color de fondo */
+/* Botones de acción del formulario */
+.boton-accion-usuario {
+    padding: 11px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
 
+.boton-accion-usuario:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.boton-accion-usuario:active {
+    transform: translateY(0);
+}
+
+/* Botón Guardar */
+.boton-guardar-datos {
+    background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+    color: white;
+}
+
+.boton-guardar-datos:hover {
+    background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+}
+
+/* Botón Cancelar */
+.boton-cancelar-edicion {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+}
+
+.boton-cancelar-edicion:hover {
+    background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+}
+
+/* Botón Limpiar */
+.boton-limpiar-campos {
+    background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+    color: #212529;
+}
+
+.boton-limpiar-campos:hover {
+    background: linear-gradient(135deg, #e0a800 0%, #d39e00 100%);
+}
+
+/* Pie del modal */
+.pie-formulario-usuarios {
+    background-color: #f1f3f5;
+    padding: 18px 28px;
+    border-top: 2px solid #dee2e6;
+}
+
+.boton-cerrar-ventana-modal {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    font-size: 0.9rem;
+}
+
+.boton-cerrar-ventana-modal:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+/* Estados de validación */
+.campo-texto-usuario:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: #dc3545;
+    background-color: #fff5f5;
+}
+
+.campo-texto-usuario:valid:not(:focus):not(:placeholder-shown) {
+    border-color: #28a745;
+    background-color: #f0fff4;
+}
+
+/* Indicador de campo requerido */
+.etiqueta-campo-usuario::after {
+    content: ' *';
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Animaciones de entrada */
+@keyframes deslizarEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.seccion-campo-usuario {
+    animation: deslizarEntrada 0.35s ease-out;
+    animation-fill-mode: both;
+}
+
+.seccion-campo-usuario:nth-child(1) { animation-delay: 0.05s; }
+.seccion-campo-usuario:nth-child(2) { animation-delay: 0.1s; }
+.seccion-campo-usuario:nth-child(3) { animation-delay: 0.15s; }
+.seccion-campo-usuario:nth-child(4) { animation-delay: 0.2s; }
+.seccion-campo-usuario:nth-child(5) { animation-delay: 0.25s; }
+
+/* Efecto de enfoque en campos */
+.campo-texto-usuario {
+    position: relative;
+}
+
+.campo-texto-usuario:focus {
+    animation: pulsoEnfoque 0.6s ease-out;
+}
+
+@keyframes pulsoEnfoque {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .ventana-modal-usuarios {
+        max-width: 95%;
+        margin: 10px auto;
+    }
+
+    .cabecera-modal-usuarios {
+        padding: 18px 20px;
+    }
+
+    .contenido-formulario-usuarios {
+        padding: 20px;
+    }
+
+    .titulo-formulario-usuarios {
+        font-size: 1.25rem;
+    }
+
+    .boton-agregar-usuario-principal {
+        padding: 12px 24px;
+        font-size: 0.95rem;
+        width: 100%;
+    }
+
+    .contenedor-acciones-formulario {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .boton-accion-usuario {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .boton-accion-usuario:last-child {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .campo-texto-usuario {
+        font-size: 0.9rem;
+        padding: 10px 13px;
+    }
+
+    .etiqueta-campo-usuario {
+        font-size: 0.9rem;
+    }
+
+    .ayuda-texto-campo {
+        font-size: 0.8rem;
+    }
+}
+
+/* Mejora de accesibilidad */
+.boton-accion-usuario:focus,
+.boton-agregar-usuario-principal:focus,
+.boton-cerrar-ventana-modal:focus {
+    outline: 3px solid #10b981;
+    outline-offset: 2px;
+}
+
+/* Efecto de carga en botón de guardar */
+.boton-guardar-datos.procesando {
+    position: relative;
+    color: transparent;
+    pointer-events: none;
+}
+
+.boton-guardar-datos.procesando::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: giroCargando 0.6s linear infinite;
+}
+
+@keyframes giroCargando {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* Pie de página */

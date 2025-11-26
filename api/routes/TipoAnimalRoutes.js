@@ -3,7 +3,7 @@ const route = express.Router();
 
 const TipoAnimal = require('../models/TipoAnimal');
 
-// Crear nuevo tipo de animal
+
 route.post('/', async (req, resp) => {
     const { tipo } = req.body;
 
@@ -17,7 +17,7 @@ route.post('/', async (req, resp) => {
     }
 });
 
-// Actualizar tipo de animal
+
 route.put('/:id', async (req, resp) => {
     try {
         const tipoActualizado = await TipoAnimal.findByIdAndUpdate(
@@ -37,7 +37,7 @@ route.put('/:id', async (req, resp) => {
     }
 });
 
-// Eliminar tipo de animal
+
 route.delete('/:id', async (req, resp) => {
     try {
         const tipoEliminado = await TipoAnimal.findByIdAndDelete(req.params.id);
@@ -53,7 +53,7 @@ route.delete('/:id', async (req, resp) => {
     }
 });
 
-// Obtener todos los tipos de animales
+
 route.get('/', async (req, resp) => {
     try {
         const tipos = await TipoAnimal.find();

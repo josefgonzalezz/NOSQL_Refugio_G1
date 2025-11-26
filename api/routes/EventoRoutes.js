@@ -3,7 +3,7 @@ const route = express.Router();
 
 const Evento = require('../models/Evento');
 
-// Crear nuevo evento
+
 route.post('/', async(req, resp) =>{
     const { idRefugio, fecha, hora, motivo, comentario } = req.body;
 
@@ -23,7 +23,7 @@ route.post('/', async(req, resp) =>{
     }
 });
 
-// Update PUT
+
 route.put('/:id', async(req, resp) =>{
     try {
         const eventoActualizado = await Evento.findByIdAndUpdate(
@@ -43,7 +43,6 @@ route.put('/:id', async(req, resp) =>{
     }
 });
 
-// Delete
 route.delete('/:id', async(req, resp) =>{
     try {
         const eventoEliminado = await Evento.findByIdAndDelete(req.params.id);
@@ -58,7 +57,7 @@ route.delete('/:id', async(req, resp) =>{
     }
 });
 
-// Obtener todos
+
 route.get('/', async(req, resp) =>{
     try {
         const eventos = await Evento.find();

@@ -4,7 +4,7 @@ const route = express.Router();
 const Donacion = require('../models/Donacion');
 
 
-// Crear nueva donación
+
 route.post('/', async (req, resp) => {
     const { idRefugio, idCliente, montoCantidad, fecha, descripcion } = req.body;
 
@@ -25,7 +25,7 @@ route.post('/', async (req, resp) => {
 });
 
 
-// Actualizar donación
+
 route.put('/:id', async (req, resp) => {
     try {
         const donacionActualizada = await Donacion.findByIdAndUpdate(
@@ -46,7 +46,7 @@ route.put('/:id', async (req, resp) => {
 });
 
 
-// Eliminar donación
+
 route.delete('/:id', async (req, resp) => {
     try {
         const donacionEliminada = await Donacion.findByIdAndDelete(req.params.id);
@@ -63,7 +63,7 @@ route.delete('/:id', async (req, resp) => {
 });
 
 
-// Obtener todas las donaciones
+
 route.get('/', async (req, resp) => {
     try {
         const donaciones = await Donacion.find()

@@ -3,7 +3,6 @@ const route = express.Router();
 
 const Adopcion = require('../models/Adopcion');
 
-// Crear nueva adopción
 route.post('/', async (req, resp) => {
     const { idAnimal, idCliente, fechaAdopcion, estado, observaciones } = req.body;
 
@@ -24,7 +23,6 @@ route.post('/', async (req, resp) => {
 });
 
 
-// Actualizar adopción
 route.put('/:id', async (req, resp) => {
     try {
         const adopcionActualizada = await Adopcion.findByIdAndUpdate(
@@ -45,7 +43,6 @@ route.put('/:id', async (req, resp) => {
 });
 
 
-// Eliminar adopción
 route.delete('/:id', async (req, resp) => {
     try {
         const adopcionEliminada = await Adopcion.findByIdAndDelete(req.params.id);
@@ -62,7 +59,6 @@ route.delete('/:id', async (req, resp) => {
 });
 
 
-// Obtener todas las adopciones
 route.get('/', async (req, resp) => {
     try {
         const adopciones = await Adopcion.find()

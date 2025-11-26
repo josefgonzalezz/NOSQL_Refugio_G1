@@ -3,15 +3,9 @@ const APIURL_TIPOS = "http://localhost:3000/api/tiposAnimales/";
 const APIURL_REFUGIOS = "http://localhost:3000/api/refugios/";
 const APIURL_ADOPCIONES = "http://localhost:3000/api/adopciones/";
 
-// =============================================
-// Variables de control
-// =============================================
 let modoEdicionAnimal = false;
 let idEdicionAnimal = null;
 
-// =============================================
-// Cargar lista de animales
-// =============================================
 function cargarAnimales() {
     $.ajax({
         type: "GET",
@@ -60,9 +54,6 @@ function generarCardsAnimales(animales) {
     });
 }
 
-// =============================================
-// Cargar combos (Tipos y Refugios)
-// =============================================
 function cargarTipos() {
     $.get(APIURL_TIPOS, function (tipos) {
         const select = $("#animalTipo");
@@ -83,9 +74,6 @@ function cargarRefugios() {
     });
 }
 
-// =============================================
-// Cancelar edición
-// =============================================
 function cancelarEdicionAnimal() {
     modoEdicionAnimal = false;
     idEdicionAnimal = null;
@@ -95,9 +83,6 @@ function cancelarEdicionAnimal() {
     $("#btnCancelarAnimal").hide();
 }
 
-// =============================================
-// DOCUMENT READY
-// =============================================
 $(document).ready(function () {
 
     cargarAnimales();
@@ -105,7 +90,6 @@ $(document).ready(function () {
     cargarRefugios();
     $("#btnCancelarAnimal").hide();
 
-    // Abrir modal para agregar
     $("#btnAgregarAnimal").on("click", function () {
         cancelarEdicionAnimal();
         cargarTipos();
@@ -113,9 +97,6 @@ $(document).ready(function () {
         $("#modalAnimal").modal("show");
     });
 
-    // =============================================
-    // GUARDAR / ACTUALIZAR
-    // =============================================
     $("#formAnimal").on("submit", function (e) {
         e.preventDefault();
 
@@ -151,39 +132,31 @@ $(document).ready(function () {
         });
     });
 
-    // =============================================
-    // EDITAR
-    // =============================================
     $(document).on("click", ".btn-editar-animal", function () {
         const id = $(this).data("id");
 
-        // Obtener datos del animal
         $.ajax({
             type: "GET",
             url: APIURL_ANIMALES + id,
             success: function (animal) {
                 
-                // Cargar tipos y refugios, luego establecer valores
                 $.when(
                     $.get(APIURL_TIPOS),
                     $.get(APIURL_REFUGIOS)
                 ).done(function(tiposResponse, refugiosResponse) {
                     
-                    // Llenar select de tipos
                     const selectTipo = $("#animalTipo");
                     selectTipo.empty();
                     tiposResponse[0].forEach(t => {
                         selectTipo.append(`<option value="${t._id}">${t.tipo}</option>`);
                     });
 
-                    // Llenar select de refugios
                     const selectRefugio = $("#animalRefugio");
                     selectRefugio.empty();
                     refugiosResponse[0].forEach(r => {
                         selectRefugio.append(`<option value="${r._id}">${r.nombre}</option>`);
                     });
 
-                    // Establecer valores del formulario
                     $("#animalNombre").val(animal.nombre);
                     $("#animalEdad").val(animal.edad);
                     $("#animalRaza").val(animal.raza);
@@ -192,7 +165,6 @@ $(document).ready(function () {
                     $("#animalTipo").val(animal.idTipo?._id || animal.idTipo);
                     $("#animalRefugio").val(animal.idRefugio?._id || animal.idRefugio);
 
-                    // Configurar modo edición
                     modoEdicionAnimal = true;
                     idEdicionAnimal = id;
 
@@ -200,7 +172,6 @@ $(document).ready(function () {
                     $("#btnSubmitAnimal").text("Actualizar");
                     $("#btnCancelarAnimal").show();
 
-                    // Abrir modal
                     $("#modalAnimal").modal("show");
                 });
             },
@@ -212,9 +183,6 @@ $(document).ready(function () {
         });
     });
 
-    // =============================================
-    // ELIMINAR
-    // =============================================
     $(document).on("click", ".btn-eliminar-animal", function () {
         const id = $(this).data("id");
 
@@ -233,18 +201,13 @@ $(document).ready(function () {
         });
     });
 
-    // =============================================
-    // ADOPTAR
-    // =============================================
     $(document).on("click", ".btn-adoptar", function () {
         const id = $(this).data("id");
 
-        // Abrir modal adopción
         $("#adopcionAnimalId").val(id);
         $("#modalAdopcion").modal("show");
     });
 
-    // Guardar adopción
     $("#formAdopcion").on("submit", function (e) {
         e.preventDefault();
 

@@ -3,7 +3,6 @@ const route = express.Router();
 
 const Formulario = require('../models/Formulario');
 
-// Crear nuevo formulario
 route.post('/', async (req, resp) => {
     const { idRefugio, idCliente, fecha, calificacion, comentario } = req.body;
 
@@ -23,7 +22,6 @@ route.post('/', async (req, resp) => {
     }
 });
 
-// Actualizar formulario
 route.put('/:id', async (req, resp) => {
     try {
         const actualizado = await Formulario.findByIdAndUpdate(
@@ -42,7 +40,7 @@ route.put('/:id', async (req, resp) => {
     }
 });
 
-// Eliminar formulario
+
 route.delete('/:id', async (req, resp) => {
     try {
         const eliminado = await Formulario.findByIdAndDelete(req.params.id);
@@ -57,7 +55,7 @@ route.delete('/:id', async (req, resp) => {
     }
 });
 
-// Obtener todos los formularios
+
 route.get('/', async (req, resp) => {
     try {
         const datos = await Formulario.find();
@@ -67,7 +65,6 @@ route.get('/', async (req, resp) => {
     }
 });
 
-// Obtener formulario por ID
 route.get('/:id', async (req, resp) => {
     try {
         const formulario = await Formulario.findById(req.params.id);

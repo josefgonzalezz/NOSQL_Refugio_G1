@@ -3,7 +3,7 @@ const route = express.Router();
 
 const Usuario = require('../models/Usuario');
 
-// Crear usuario
+
 route.post('/', async (req, resp) => {
     const {
         nombre,
@@ -29,7 +29,7 @@ route.post('/', async (req, resp) => {
     }
 });
 
-// Actualizar usuario
+
 route.put('/:id', async (req, resp) => {
     try {
         const actualizado = await Usuario.findByIdAndUpdate(
@@ -48,7 +48,7 @@ route.put('/:id', async (req, resp) => {
     }
 });
 
-// Eliminar usuario
+
 route.delete('/:id', async (req, resp) => {
     try {
         const eliminado = await Usuario.findByIdAndDelete(req.params.id);
@@ -63,7 +63,7 @@ route.delete('/:id', async (req, resp) => {
     }
 });
 
-// Obtener todos
+
 route.get('/', async (req, resp) => {
     try {
         const datos = await Usuario.find();
@@ -73,7 +73,7 @@ route.get('/', async (req, resp) => {
     }
 });
 
-// Obtener uno por ID
+
 route.get('/:id', async (req, resp) => {
     try {
         const dato = await Usuario.findById(req.params.id);

@@ -3,7 +3,7 @@ const route = express.Router();
 
 const Personal = require('../models/Personal');
 
-// Crear personal
+
 route.post('/', async (req, resp) => {
     const {
         idRefugio,
@@ -29,7 +29,7 @@ route.post('/', async (req, resp) => {
     }
 });
 
-// Actualizar personal
+
 route.put('/:id', async (req, resp) => {
     try {
         const actualizado = await Personal.findByIdAndUpdate(
@@ -48,7 +48,7 @@ route.put('/:id', async (req, resp) => {
     }
 });
 
-// Eliminar personal
+
 route.delete('/:id', async (req, resp) => {
     try {
         const eliminado = await Personal.findByIdAndDelete(req.params.id);
@@ -63,7 +63,7 @@ route.delete('/:id', async (req, resp) => {
     }
 });
 
-// Obtener todos los personal
+
 route.get('/', async (req, resp) => {
     try {
         const datos = await Personal.find();
@@ -73,7 +73,6 @@ route.get('/', async (req, resp) => {
     }
 });
 
-// Obtener personal por ID
 route.get('/:id', async (req, resp) => {
     try {
         const dato = await Personal.findById(req.params.id);

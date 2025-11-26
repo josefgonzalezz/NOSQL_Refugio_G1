@@ -3,7 +3,7 @@ const route = express.Router();
 
 const Visita = require('../models/Visita');
 
-// Crear visita
+
 route.post('/', async (req, resp) => {
     const {
         idRefugio,
@@ -29,7 +29,7 @@ route.post('/', async (req, resp) => {
     }
 });
 
-// Actualizar visita
+
 route.put('/:id', async (req, resp) => {
     try {
         const actualizado = await Visita.findByIdAndUpdate(
@@ -48,7 +48,7 @@ route.put('/:id', async (req, resp) => {
     }
 });
 
-// Eliminar visita
+
 route.delete('/:id', async (req, resp) => {
     try {
         const eliminado = await Visita.findByIdAndDelete(req.params.id);
@@ -63,7 +63,7 @@ route.delete('/:id', async (req, resp) => {
     }
 });
 
-// Obtener todas las visitas
+
 route.get('/', async (req, resp) => {
     try {
         const datos = await Visita.find();
@@ -73,7 +73,7 @@ route.get('/', async (req, resp) => {
     }
 });
 
-// Obtener visita por ID
+
 route.get('/:id', async (req, resp) => {
     try {
         const dato = await Visita.findById(req.params.id);

@@ -4,7 +4,6 @@ const route = express.Router();
 const Animal = require('../models/Animal');
 
 
-// Crear un nuevo animal
 route.post('/', async (req, resp) => {
     const { idTipo, idRefugio, nombre, edad, raza, sexo, salud } = req.body;
 
@@ -47,7 +46,6 @@ route.put('/:id', async (req, resp) => {
 });
 
 
-// Eliminar animal
 route.delete('/:id', async (req, resp) => {
     try {
         const animalEliminado = await Animal.findByIdAndDelete(req.params.id);

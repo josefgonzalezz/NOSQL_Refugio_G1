@@ -31,7 +31,7 @@ route.post('/', async (req, resp) => {
     }
 });
 
-// Actualizar refugio
+
 route.put('/:id', async (req, resp) => {
     try {
         const actualizado = await Refugio.findByIdAndUpdate(
@@ -50,7 +50,7 @@ route.put('/:id', async (req, resp) => {
     }
 });
 
-// Eliminar refugio
+
 route.delete('/:id', async (req, resp) => {
     try {
         const eliminado = await Refugio.findByIdAndDelete(req.params.id);
@@ -65,7 +65,7 @@ route.delete('/:id', async (req, resp) => {
     }
 });
 
-// Obtener todos
+
 route.get('/', async (req, resp) => {
     try {
         const datos = await Refugio.find();
@@ -75,7 +75,7 @@ route.get('/', async (req, resp) => {
     }
 });
 
-// Obtener por ID
+
 route.get('/:id', async (req, resp) => {
     try {
         const dato = await Refugio.findById(req.params.id);

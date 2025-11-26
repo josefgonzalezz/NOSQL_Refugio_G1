@@ -3,7 +3,7 @@ const route = express.Router();
 
 const Medicamento = require('../models/Medicamento');
 
-// Crear un nuevo medicamento
+
 route.post('/', async (req, resp) => {
     const {
         idAnimal,
@@ -27,7 +27,7 @@ route.post('/', async (req, resp) => {
     }
 });
 
-// Actualizar medicamento
+
 route.put('/:id', async (req, resp) => {
     try {
         const actualizado = await Medicamento.findByIdAndUpdate(
@@ -46,7 +46,7 @@ route.put('/:id', async (req, resp) => {
     }
 });
 
-// Eliminar medicamento
+
 route.delete('/:id', async (req, resp) => {
     try {
         const eliminado = await Medicamento.findByIdAndDelete(req.params.id);
@@ -61,7 +61,6 @@ route.delete('/:id', async (req, resp) => {
     }
 });
 
-// Obtener todos los medicamentos
 route.get('/', async (req, resp) => {
     try {
         const datos = await Medicamento.find();
@@ -71,7 +70,6 @@ route.get('/', async (req, resp) => {
     }
 });
 
-// Obtener un medicamento por ID
 route.get('/:id', async (req, resp) => {
     try {
         const dato = await Medicamento.findById(req.params.id);

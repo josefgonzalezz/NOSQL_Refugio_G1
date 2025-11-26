@@ -63,7 +63,6 @@ route.delete('/:id', async (req, resp) => {
 });
 
 
-// Obtener todos los animales
 route.get('/', async (req, resp) => {
     try {
         const animales = await Animal.find()
@@ -75,5 +74,23 @@ route.get('/', async (req, resp) => {
         resp.status(500).json({ mensaje: error.message });
     }
 });
+
+
+route.get('/:id', async (req, resp) => {
+    try {
+        const animal = await Animal.findById(req.params.id)
+            .populate('idTipo')
+            .populate('idRefugio');
+
+        if (!animal) {
+            return resp.status(404).json({ mensaje: "Animal no encontrado" });
+        }
+
+        resp.json(animal);
+    } catch (error) {
+        resp.status(500).json({ mensaje: error.message });
+    }
+});
+
 
 module.exports = route;

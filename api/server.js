@@ -47,7 +47,7 @@ app.use('/api/refugios', refugioRoutes);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/visitas', visitaRoutes);
 app.use('/api/direccionesRefugio', direccionRefugioRoutes);
-app.use('/tiposAnimales', tipoAnimalRoutes);
+app.use('/api/tiposAnimales', tipoAnimalRoutes);
 
 
 

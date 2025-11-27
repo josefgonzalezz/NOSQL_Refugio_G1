@@ -5,7 +5,7 @@ const DireccionRefugioSchema = new mongoose.Schema(
         idRefugio: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Refugio',
-            required: true
+            required: false  
         },
         provincia: {
             type: String,

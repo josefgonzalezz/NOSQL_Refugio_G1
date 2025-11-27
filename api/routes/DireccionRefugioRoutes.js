@@ -3,6 +3,7 @@ const route = express.Router();
 
 const DireccionRefugio = require('../models/DireccionRefugio');
 
+// Crear dirección (independiente)
 route.post('/', async (req, resp) => {
     const {
         idRefugio,
@@ -28,6 +29,7 @@ route.post('/', async (req, resp) => {
     }
 });
 
+// Actualizar dirección
 route.put('/:id', async (req, resp) => {
     try {
         const actualizado = await DireccionRefugio.findByIdAndUpdate(
@@ -46,6 +48,7 @@ route.put('/:id', async (req, resp) => {
     }
 });
 
+// Eliminar dirección
 route.delete('/:id', async (req, resp) => {
     try {
         const eliminado = await DireccionRefugio.findByIdAndDelete(req.params.id);
@@ -60,19 +63,20 @@ route.delete('/:id', async (req, resp) => {
     }
 });
 
+// Obtener todas las direcciones
 route.get('/', async (req, resp) => {
     try {
-        const datos = await DireccionRefugio.find();
+        const datos = await DireccionRefugio.find().populate('idRefugio');
         resp.json(datos);
     } catch (error) {
         resp.status(500).json({ mensaje: error.message });
     }
 });
 
-
+// Obtener una dirección específica
 route.get('/:id', async (req, resp) => {
     try {
-        const dato = await DireccionRefugio.findById(req.params.id);
+        const dato = await DireccionRefugio.findById(req.params.id).populate('idRefugio');
 
         if (!dato) {
             return resp.status(404).json({ mensaje: "Dirección no encontrada" });

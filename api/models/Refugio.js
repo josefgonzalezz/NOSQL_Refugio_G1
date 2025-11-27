@@ -25,6 +25,11 @@ const RefugioSchema = new mongoose.Schema(
         telefono: {
             type: String,
             required: true
+        },
+        direccion: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'DireccionRefugio',
+            required: false
         }
     },
     { collection: 'Refugios' }

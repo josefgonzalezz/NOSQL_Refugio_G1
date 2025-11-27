@@ -8,14 +8,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    
-    <link href="../Css/Usuarios.css" rel="stylesheet">
+    <link href="../Css/Forumulario.css" rel="stylesheet">
 </head>
 
 <body class="body-usuarios">
     <header class="header-principal">
-        <div class="header-contenido">
-        </div>
+        <div class="header-contenido"></div>
     </header>
 
     <nav class="nav-sitio-contenedor">
@@ -24,18 +22,21 @@
             <a href="usuariojq.html" class="nav-sitio-item">Usuarios</a>
             <a href="Adopciones.html" class="nav-sitio-item">Animales</a>
             <a href="FormularioAdopcion.html" class="nav-sitio-item">Adopcion</a>
-            <a href="Eventos.html" class="nav-sitio-item activo">Eventos</a>
+            <a href="Refugio.html" class="nav-sitio-item">Refugios</a>
+            <a href="Eventos.html" class="nav-sitio-item">Eventos</a>
             <a href="design.html" class="nav-sitio-item">Conoce mas!</a>
             <a href="contacto.html" class="nav-sitio-item">Contacto</a>
         </div>
     </nav>
 
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path fill="#274001" fill-opacity="1" d="M0,288L40,250.7C80,213,160,139,240,112C320,85,400,107,480,128C560,149,640,171,720,176C800,181,880,171,960,186.7C1040,203,1120,245,1200,266.7C1280,288,1360,288,1400,288L1440,288L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
+        <path fill="#274001" fill-opacity="1"
+            d="M0,288L40,250.7C80,213,160,139,240,112C320,85,400,107,480,128C560,149,640,171,720,176C800,181,880,171,960,186.7C1040,203,1120,245,1200,266.7C1280,288,1360,288,1400,288L1440,288L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z">
+        </path>
     </svg>
-    
+
     <div class="izquierda2">
-        <div class="onda-superior"></div> 
+        <div class="onda-superior"></div>
 
         <div class="container contenedor-principal-usuarios">
             <div class="row justify-content-center align-items-center g-2">
@@ -45,173 +46,99 @@
             </div>
 
             <div class="container mt-4">
-                <button
-                    type="button"
-                    class="boton-agregar-usuario-principal"
-                    id="btnAgregarEvento"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modalEvento"
-                >
+                <button type="button" class="boton-agregar-usuario-principal" id="btnAgregarEvento"
+                    data-bs-toggle="modal" data-bs-target="#modalEvento">
                     Agregar Evento
                 </button>
-                
-                <div
-                    class="modal fade"
-                    id="modalEvento"
-                    tabindex="-1"
-                    role="dialog"
-                    aria-labelledby="tituloModalEvento"
-                    aria-hidden="true"
-                >
+
+                <div class="modal fade" id="modalEvento" tabindex="-1" role="dialog"
+                    aria-labelledby="tituloModalEvento" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered ventana-modal-usuarios" role="document">
                         <div class="modal-content caja-contenido-modal-usuarios">
                             <div class="modal-header cabecera-modal-usuarios">
-                                <h5 class="modal-title titulo-formulario-usuarios" id="tituloModalEvento">
-                                    Nuevo Evento
+                                <h5 class="modal-title titulo-formulario-usuarios" id="tituloModalEvento">Nuevo Evento
                                 </h5>
-                                <button
-                                    type="button"
-                                    class="btn-close boton-cierre-modal-blanco" 
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"
-                                ></button>
+                                <button type="button" class="btn-close boton-cierre-modal-blanco" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="modal-body contenido-formulario-usuarios">
                                 <div class="container-fluid">
                                     <form id="formEvento" class="formulario-gestion-usuarios">
-                                        
+
                                         <div class="mb-3 seccion-campo-usuario">
                                             <label for="eventoRefugio" class="form-label etiqueta-campo-usuario">Refugio</label>
-                                            <select
-                                                class="form-select campo-texto-usuario"
-                                                name="eventoRefugio"
-                                                id="eventoRefugio"
-                                                required
-                                            >
+                                            <select class="form-select campo-texto-usuario" name="eventoRefugio"
+                                                id="eventoRefugio" required>
                                                 <option value="">Seleccione un refugio</option>
                                             </select>
                                             <small class="form-text ayuda-texto-campo">Refugio donde se realizará el evento</small>
                                         </div>
 
                                         <div class="mb-3 seccion-campo-usuario">
-                                            <label for="eventoUsuario" class="form-label etiqueta-campo-usuario">Cliente</label>
-                                            <select
-                                                class="form-select campo-texto-usuario"
-                                                name="eventoUsuario"
-                                                id="eventoUsuario"
-                                                required
-                                            >
-                                                <option value="">Seleccione un cliente</option>
-                                            </select>
-                                            <small class="form-text ayuda-texto-campo">Cliente asociado al evento</small>
-                                        </div>
-
-                                        <div class="mb-3 seccion-campo-usuario">
                                             <label for="eventoFecha" class="form-label etiqueta-campo-usuario">Fecha</label>
-                                            <input
-                                                type="date"
-                                                class="form-control campo-texto-usuario"
-                                                name="eventoFecha"
-                                                id="eventoFecha"
-                                                required
-                                            />
+                                            <input type="date" class="form-control campo-texto-usuario" name="eventoFecha"
+                                                id="eventoFecha" required />
                                             <small class="form-text ayuda-texto-campo">Fecha del evento</small>
                                         </div>
 
                                         <div class="mb-3 seccion-campo-usuario">
                                             <label for="eventoHora" class="form-label etiqueta-campo-usuario">Hora</label>
-                                            <input
-                                                type="time"
-                                                class="form-control campo-texto-usuario"
-                                                name="eventoHora"
-                                                id="eventoHora"
-                                                required
-                                            />
+                                            <input type="time" class="form-control campo-texto-usuario" name="eventoHora"
+                                                id="eventoHora" required />
                                             <small class="form-text ayuda-texto-campo">Hora del evento</small>
                                         </div>
 
                                         <div class="mb-3 seccion-campo-usuario">
                                             <label for="eventoMotivo" class="form-label etiqueta-campo-usuario">Motivo</label>
-                                            <input
-                                                type="text"
-                                                class="form-control campo-texto-usuario"
-                                                name="eventoMotivo"
-                                                id="eventoMotivo"
-                                                placeholder="Ingrese el motivo del evento"
-                                                required
-                                            />
+                                            <input type="text" class="form-control campo-texto-usuario" name="eventoMotivo"
+                                                id="eventoMotivo" placeholder="Ingrese el motivo del evento" required />
                                             <small class="form-text ayuda-texto-campo">Motivo o título del evento</small>
                                         </div>
 
                                         <div class="mb-3 seccion-campo-usuario">
                                             <label for="eventoComentario" class="form-label etiqueta-campo-usuario">Comentario</label>
-                                            <textarea
-                                                class="form-control campo-texto-usuario"
-                                                name="eventoComentario"
-                                                id="eventoComentario"
-                                                rows="3"
-                                                placeholder="Ingrese comentarios adicionales"
-                                                required
-                                            ></textarea>
+                                            <textarea class="form-control campo-texto-usuario" name="eventoComentario"
+                                                id="eventoComentario" rows="3" placeholder="Ingrese comentarios adicionales"
+                                                required></textarea>
                                             <small class="form-text ayuda-texto-campo">Comentarios o detalles adicionales</small>
                                         </div>
 
                                         <div class="container contenedor-acciones-formulario d-flex justify-content-between mt-4">
-                                            <button
-                                                type="submit"
-                                                class="boton-accion-usuario boton-guardar-datos"
-                                                id="btnSubmitEvento"
-                                            >
-                                                Guardar
-                                            </button>
+                                            <button type="submit" class="boton-accion-usuario boton-guardar-datos"
+                                                id="btnSubmitEvento">Guardar</button>
 
-                                            <button
-                                                type="button"
-                                                class="boton-accion-usuario boton-cancelar-edicion"
-                                                id="btnCancelarEvento"
-                                                style="display: none;"
-                                            >
-                                                Cancelar
-                                            </button>
+                                            <button type="button" class="boton-accion-usuario boton-cancelar-edicion"
+                                                id="btnCancelarEvento" style="display: none;">Cancelar</button>
 
-                                            <button
-                                                type="reset"
-                                                class="boton-accion-usuario boton-limpiar-campos"
-                                            >
-                                                Limpiar
-                                            </button>
+                                            <button type="reset" class="boton-accion-usuario boton-limpiar-campos">Limpiar</button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                             <div class="modal-footer pie-formulario-usuarios">
-                                <button
-                                    type="button"
-                                    class="boton-cerrar-ventana-modal"
-                                    data-bs-dismiss="modal"
-                                >
+                                <button type="button" class="boton-cerrar-ventana-modal" data-bs-dismiss="modal">
                                     Cerrar
-                                </button>                        
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="container mt-5">
-                <div class="row" id="contenedorEventos">
-                </div>
+                <div class="row" id="contenedorEventos"></div>
             </div>
         </div>
-        
+
         <div class="onda-inferior"></div>
-        
+
         <footer class="footer-principal">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                <path fill="#5A7326" fill-opacity="1" d="M0,32L30,74.7C60,117,120,203,180,208C240,213,300,139,360,122.7C420,107,480,149,540,181.3C600,213,660,235,720,229.3C780,224,840,192,900,165.3C960,139,1020,117,1080,106.7C1140,96,1200,96,1260,122.7C1320,149,1380,203,1410,229.3L1440,256L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path>
+                <path fill="#5A7326" fill-opacity="1"
+                    d="M0,32L30,74.7C60,117,120,203,180,208C240,213,300,139,360,122.7C420,107,480,149,540,181.3C600,213,660,235,720,229.3C780,224,840,192,900,165.3C960,139,1020,117,1080,106.7C1140,96,1200,96,1260,122.7C1320,149,1380,203,1410,229.3L1440,256L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z">
+                </path>
             </svg>
-            <div class="footer">
-            </div>
+            <div class="footer"></div>
         </footer>
     </div>
 

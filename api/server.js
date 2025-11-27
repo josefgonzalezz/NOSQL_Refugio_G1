@@ -28,10 +28,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //Conexion a mongodb
-mongoose.connect('mongodb://localhost:27017/AnimalShelter', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log('Mongo DB Conectado correctamente'))
+mongoose.connect('mongodb://localhost:27017/AnimalShelter')
+  .then(() => console.log('Mongo DB Conectado correctamente'))
   .catch(err => console.log('Error al conectar Mongo DB: ', err));
 
 //las rutas

@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <title>Gestión de Visitas</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link href="../Css/Usuarios.css" rel="stylesheet">
+</head>
+
+<body class="body-usuarios">
+    <header class="header-principal">
+        <div class="header-contenido">
+        </div>
+    </header>
+
+
+    <nav class="nav-sitio-contenedor">
+        <div class="nav-sitio-enlaces">
+            <a href="Index.html" class="nav-sitio-item">Inicio</a>
+            <a href="usuariojq.html" class="nav-sitio-item">Usuarios</a>
+            <a href="Adopciones.html" class="nav-sitio-item">Animales</a>
+            <a href="FormularioAdopcion.html" class="nav-sitio-item">Adopcion</a>
+            <a href="Eventos.html" class="nav-sitio-item">Eventos</a>
+            <a href="Visitas.html" class="nav-sitio-item activo">Visitas</a>
+            <a href="design.html" class="nav-sitio-item">Conoce mas!</a>
+            <a href="contacto.html" class="nav-sitio-item">Contacto</a>
+        </div>
+    </nav>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#274001" fill-opacity="1"
+            d="M0,288L40,250.7C80,213,160,139,240,112C320,85,400,107,480,112C560,117,640,107,720,112C800,117,880,139,960,154.7C1040,171,1120,181,1200,176C1280,171,1360,149,1400,138.7L1440,128L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z">
+        </path>
+    </svg>
+
+    <div class="izquierda2">
+        <div class="onda-superior"></div>
+
+        <div class="container contenedor-principal-usuarios">
+            <div class="row justify-content-center align-items-center g-2">
+                <div class="col-auto">
+                    <h1 class="mt-4 titulo-principal-usuarios">Gestión de Visitas</h1>
+                </div>
+            </div>
+
+            <div class="container mt-4">
+                
+                <button type="button"
+                    class="boton-agregar-usuario-principal"
+                    id="btnAgregarVisita"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalVisita">
+                    Agregar visita
+                </button>
+
+                
+                <div class="modal fade" id="modalVisita" tabindex="-1" role="dialog"
+                    aria-labelledby="tituloModalVisita" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered ventana-modal-usuarios" role="document">
+                        <div class="modal-content caja-contenido-modal-usuarios">
+                            <div class="modal-header cabecera-modal-usuarios">
+                                <h5 class="modal-title titulo-formulario-usuarios" id="tituloModalVisita">
+                                    Registrar visita
+                                </h5>
+                                <button type="button" class="btn-close boton-cierre-modal-blanco" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body contenido-formulario-usuarios">
+                                <div class="container-fluid">
+                                    <form id="visitaFormulario" class="formulario-gestion-usuarios">
+                                        
+                                        <input type="hidden" id="visitaId" />
+
+                                        
+                                        <div class="mb-3 seccion-campo-usuario">
+                                            <label for="visitaRefugio" class="form-label etiqueta-campo-usuario">
+                                                Refugio
+                                            </label>
+                                            <select
+                                                class="form-select campo-texto-usuario"
+                                                name="visitaRefugio"
+                                                id="visitaRefugio"
+                                                required>
+                                                <option value="">Seleccione un refugio</option>
+                                            </select>
+                                            <small class="form-text ayuda-texto-campo">
+                                                Refugio donde se realizará la visita
+                                            </small>
+                                        </div>
+
+                                        
+                                        <div class="mb-3 seccion-campo-usuario">
+                                            <label for="visitaCliente" class="form-label etiqueta-campo-usuario">
+                                                Cliente
+                                            </label>
+                                            <select
+                                                class="form-select campo-texto-usuario"
+                                                name="visitaCliente"
+                                                id="visitaCliente"
+                                                required>
+                                                <option value="">Seleccione un cliente</option>
+                                            </select>
+                                            <small class="form-text ayuda-texto-campo">
+                                                Cliente que realizará la visita
+                                            </small>
+                                        </div>
+
+                                        
+                                        <div class="mb-3 seccion-campo-usuario">
+                                            <label for="visitaFecha" class="form-label etiqueta-campo-usuario">
+                                                Fecha
+                                            </label>
+                                            <input type="date"
+                                                class="form-control campo-texto-usuario"
+                                                name="visitaFecha"
+                                                id="visitaFecha"
+                                                required />
+                                            <small class="form-text ayuda-texto-campo">
+                                                Fecha programada de la visita
+                                            </small>
+                                        </div>
+
+                                        
+                                        <div class="mb-3 seccion-campo-usuario">
+                                            <label for="visitaHora" class="form-label etiqueta-campo-usuario">
+                                                Hora
+                                            </label>
+                                            <input type="time"
+                                                class="form-control campo-texto-usuario"
+                                                name="visitaHora"
+                                                id="visitaHora"
+                                                required />
+                                            <small class="form-text ayuda-texto-campo">
+                                                Hora programada de la visita
+                                            </small>
+                                        </div>
+
+                                        
+                                        <div class="mb-3 seccion-campo-usuario">
+                                            <label for="visitaMotivo" class="form-label etiqueta-campo-usuario">
+                                                Motivo
+                                            </label>
+                                            <textarea
+                                                class="form-control campo-texto-usuario"
+                                                name="visitaMotivo"
+                                                id="visitaMotivo"
+                                                rows="3"
+                                                placeholder="Ej: Conocer a un animal, seguimiento, visita guiada..."
+                                                required></textarea>
+                                            <small class="form-text ayuda-texto-campo">
+                                                Describa brevemente el motivo de la visita
+                                            </small>
+                                        </div>
+
+                                        
+                                        <div
+                                            class="container contenedor-acciones-formulario d-flex justify-content-between mt-4">
+                                            <button type="submit"
+                                                class="boton-accion-usuario boton-guardar-datos"
+                                                id="btnSubmitVisita">
+                                                Guardar
+                                            </button>
+
+                                            <button type="button"
+                                                class="boton-accion-usuario boton-cancelar-edicion"
+                                                id="btnCancelarVisita"
+                                                style="display: none;">
+                                                Cancelar
+                                            </button>
+
+                                            <button type="reset"
+                                                class="boton-accion-usuario boton-limpiar-campos">
+                                                Limpiar
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer pie-formulario-usuarios">
+                                <button type="button" class="boton-cerrar-ventana-modal" data-bs-dismiss="modal">
+                                    Cerrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABLA DE VISITAS -->
+                <div class="table-responsive mt-5 tabla-contenedor-usuarios">
+                    <table class="table table-striped table-hover tabla-estilo-datos">
+                        <thead class="thead-usuarios">
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Refugio</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Hora</th>
+                                <th scope="col">Motivo</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaVisitas">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="onda-inferior"></div>
+
+            <footer class="footer-principal">
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+
+    <script src="../js/Visitas.js"></script>
+</body>
+
+</html>
+

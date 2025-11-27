@@ -77,4 +77,22 @@ route.get('/', async (req, resp) => {
     }
 });
 
+
+route.get('/:id', async (req, resp) => {
+    try {
+        const donacion = await Donacion.findById(req.params.id)
+            .populate('idRefugio')
+            .populate('idCliente');
+
+        if (!donacion) {
+            return resp.status(404).json({ mensaje: "Donación no encontrada" });
+        }
+
+        resp.json(donacion);
+    } catch (error) {
+        resp.status(400).json({ mensaje: error.message });
+    }
+});
+
+
 module.exports = route;

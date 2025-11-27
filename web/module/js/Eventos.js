@@ -167,7 +167,6 @@ $(document).ready(function () {
         });
     });
 
-    // Botón cancelar
     $("#btnCancelarEvento").on("click", function () {
         cancelarEdicionEvento();
         $("#modalEvento").modal("hide");

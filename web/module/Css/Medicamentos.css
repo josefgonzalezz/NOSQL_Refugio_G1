@@ -1,0 +1,61 @@
+
+:root{
+    --blanco: #ffffff;
+    --oscuro: #000;
+    --Azulrey: #0e1f53;
+    --VerdeMusgo: #274001;
+    --Verde3: #092601;
+    --Gris: #D9D9D9;
+    --Morado: #E0A8E6;
+    --VerdeClaro : #B6D982;
+    --Fuente-Principal: 3.8rem; 
+}
+
+
+body{
+    background-color: var(--blanco);
+    font-family: "Montserrat", serif;
+}
+
+
+.tabla-medicamentos {
+    width: 100%;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 2rem;
+}
+
+.tabla-medicamentos tbody tr:hover {
+    background-color: #e8f3d8;
+    cursor: pointer;
+}
+
+.btn-editar {
+    background-color: var(--Azulrey);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 5px;
+}
+
+.btn-eliminar {
+    background-color: #b32f2f;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 5px;
+}
+
+.btn-agregar {
+    background-color: var(--VerdeMusgo);
+    color: white;
+    font-size: 1.8rem;
+    padding: 10px 25px;
+    border-radius: 25px;
+    margin-top: 20px;
+}
+
+
+.modal-body {
+    max-height: 60vh;
+    overflow-y: auto;
+}

@@ -27,19 +27,19 @@ function cargarRefugios() {
                             <h5 class="card-title text-primary">${r.nombre}</h5>
                             <p class="text-muted small">${r.descripcion}</p>
                             <hr>
-                            <p class="mb-1"><b>📅 Fundación:</b> ${new Date(r.fechaFundacion).toLocaleDateString('es-CR')}</p>
-                            <p class="mb-1"><b>📞 Teléfono:</b> ${r.telefono}</p>
-                            <p class="mb-1"><b>📧 Correo:</b> ${r.correo}</p>
-                            <p class="mb-1"><b>🐾 Capacidad:</b> ${r.capacidad} animales</p>
+                            <p class="mb-1"><b> Fundación:</b> ${new Date(r.fechaFundacion).toLocaleDateString('es-CR')}</p>
+                            <p class="mb-1"><b> Teléfono:</b> ${r.telefono}</p>
+                            <p class="mb-1"><b> Correo:</b> ${r.correo}</p>
+                            <p class="mb-1"><b> Capacidad:</b> ${r.capacidad} animales</p>
                             <hr>
-                            <p class="mb-1"><b>📍 Dirección:</b><br>${direccionTexto}</p>
+                            <p class="mb-1"><b> Dirección:</b><br>${direccionTexto}</p>
                             <p class="mb-2 text-muted small">${detallesTexto}</p>
                             <div class="d-flex gap-2 mt-3">
                                 <button class="btn btn-warning btn-sm flex-fill btn-editar-refugio" data-id="${r._id}">
-                                    ✏️ Editar
+                                     Editar
                                 </button>
                                 <button class="btn btn-danger btn-sm flex-fill btn-eliminar-refugio" data-id="${r._id}">
-                                    🗑️ Eliminar
+                                     Eliminar
                                 </button>
                             </div>
                         </div>

@@ -162,13 +162,11 @@ $(document).ready(function () {
         });
     });
 
-    // Cancelar edición
     $("#btnCancelarVisita").on("click", function () {
         limpiarFormularioVisita();
         $("#modalVisita").modal("hide");
     });
 
-    // Editar visita
     $(document).on("click", ".btn-editar-visita", function () {
         const id = $(this).data("id");
 
@@ -220,7 +218,6 @@ $(document).ready(function () {
         });
     });
 
-    // Eliminar visita
     $(document).on("click", ".btn-eliminar-visita", function () {
         const id = $(this).data("id");
 

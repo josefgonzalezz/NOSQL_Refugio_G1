@@ -1,123 +1,142 @@
-class MedicamentosApp {
+$(document).ready(function () {
 
-    constructor() {
-        this.api = "http://localhost:3000/medicamentos";
-        this.tabla = $("#tablaMedicamentos");
-        this.modal = new bootstrap.Modal(document.getElementById("modalMedicamento"));
+    const API_URL = "http://localhost:3000/Medicamento";
+    const API_ANIMALES = "http://localhost:3000/Animal";
 
-        this.initEventos();
-        this.listar();
-    }
+    cargarAnimales();
+    cargarTabla();
 
-    initEventos() {
-
-        $("#btnNuevo").on("click", () => {
-            this.limpiarFormulario();
-            this.modal.show();
-        });
-
-        $("#btnGuardar").on("click", () => {
-            const id = $("#medId").val();
-            id ? this.actualizar(id) : this.crear();
-        });
-    }
-
-    limpiarFormulario() {
+    $("#btnNuevo").click(function () {
+        limpiarCampos();
         $("#medId").val("");
+        $("#modalMedicamento").modal("show");
+    });
+
+    $("#btnGuardar").click(function () {
+        guardarMedicamento();
+    });
+
+    function cargarAnimales() {
+        $.ajax({
+            url: API_ANIMALES,
+            method: "GET",
+            success: function (data) {
+                let opciones = `<option value="">Seleccione un animal</option>`;
+
+                data.forEach(a => {
+                    opciones += `<option value="${a._id}">${a.nombre}</option>`;
+                });
+
+                $("#idAnimal").html(opciones);
+            }
+        });
+    }
+
+    function cargarTabla() {
+        $.ajax({
+            url: API_URL,
+            method: "GET",
+            success: function (data) {
+                let filas = "";
+
+                data.forEach(m => {
+                    filas += `
+                        <tr>
+                            <td>${m.idAnimal?.nombre ?? "SIN NOMBRE"}</td>
+                            <td>${m.nombreMedicamento}</td>
+                            <td>${m.dosis}</td>
+                            <td>${m.fechaVencimiento}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm btnEditar" data-id="${m._id}">Editar</button>
+                                <button class="btn btn-danger btn-sm btnEliminar" data-id="${m._id}">Eliminar</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                $("#tablaMedicamentos").html(filas);
+
+                $(".btnEditar").click(cargarMedicamentoEditar);
+                $(".btnEliminar").click(eliminarMedicamento);
+            }
+        });
+    }
+
+    function guardarMedicamento() {
+        const id = $("#medId").val();
+
+        const data = {
+            idAnimal: $("#idAnimal").val(),
+            nombreMedicamento: $("#nombreMedicamento").val(),
+            dosis: $("#dosis").val(),
+            fechaVencimiento: $("#fechaVencimiento").val()
+        };
+
+        if (!data.idAnimal || !data.nombreMedicamento || !data.dosis || !data.fechaVencimiento) {
+            alert("Todos los campos son obligatorios.");
+            return;
+        }
+
+        const metodo = id ? "PUT" : "POST";
+        const url = id ? `${API_URL}/${id}` : API_URL;
+
+        $.ajax({
+            url: url,
+            method: metodo,
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            success: function () {
+                alert("Medicamento guardado correctamente.");
+                $("#modalMedicamento").modal("hide");
+                cargarTabla();
+            },
+            error: function () {
+                alert("Error al guardar el medicamento.");
+            }
+        });
+    }
+
+    function cargarMedicamentoEditar() {
+        const id = $(this).data("id");
+
+        $.ajax({
+            url: `${API_URL}/${id}`,
+            method: "GET",
+            success: function (m) {
+                $("#medId").val(m._id);
+                $("#idAnimal").val(m.idAnimal?._id);
+                $("#nombreMedicamento").val(m.nombreMedicamento);
+                $("#dosis").val(m.dosis);
+                $("#fechaVencimiento").val(m.fechaVencimiento);
+
+                $("#modalMedicamento").modal("show");
+            }
+        });
+    }
+
+    function eliminarMedicamento() {
+        const id = $(this).data("id");
+
+        if (!confirm("¿Seguro que deseas eliminar este medicamento?")) return;
+
+        $.ajax({
+            url: `${API_URL}/${id}`,
+            method: "DELETE",
+            success: function () {
+                alert("Medicamento eliminado correctamente.");
+                cargarTabla();
+            },
+            error: function () {
+                alert("No se pudo eliminar.");
+            }
+        });
+    }
+
+    function limpiarCampos() {
         $("#idAnimal").val("");
         $("#nombreMedicamento").val("");
         $("#dosis").val("");
         $("#fechaVencimiento").val("");
     }
 
-    // -------- GET --------
-    listar() {
-        $.get(this.api, (data) => {
-            this.tabla.empty();
-
-            data.forEach(m => {
-                this.tabla.append(`
-                    <tr>
-                        <td>${m.idAnimal}</td>
-                        <td>${m.nombreMedicamento}</td>
-                        <td>${m.dosis}</td>
-                        <td>${m.fechaVencimiento}</td>
-                        <td>
-                            <button class="btn-editar" onclick="app.editar('${m._id}')">Editar</button>
-                            <button class="btn-eliminar" onclick="app.eliminar('${m._id}')">Eliminar</button>
-                        </td>
-                    </tr>
-                `);
-            });
-        });
-    }
-
-    // -------- POST --------
-    crear() {
-        const datos = {
-            idAnimal: $("#idAnimal").val(),
-            nombreMedicamento: $("#nombreMedicamento").val(),
-            dosis: $("#dosis").val(),
-            fechaVencimiento: $("#fechaVencimiento").val(),
-        };
-
-        $.ajax({
-            url: this.api,
-            type: "POST",
-            data: JSON.stringify(datos),
-            contentType: "application/json",
-            success: () => {
-                this.modal.hide();
-                this.listar();
-            }
-        });
-    }
-
-    // -------- PUT --------
-    actualizar(id) {
-        const datos = {
-            idAnimal: $("#idAnimal").val(),
-            nombreMedicamento: $("#nombreMedicamento").val(),
-            dosis: $("#dosis").val(),
-            fechaVencimiento: $("#fechaVencimiento").val(),
-        };
-
-        $.ajax({
-            url: `${this.api}/${id}`,
-            type: "PUT",
-            data: JSON.stringify(datos),
-            contentType: "application/json",
-            success: () => {
-                this.modal.hide();
-                this.listar();
-            }
-        });
-    }
-
-    // -------- GET/:id para editar --------
-    editar(id) {
-        $.get(`${this.api}/${id}`, (m) => {
-
-            $("#medId").val(m._id);
-            $("#idAnimal").val(m.idAnimal);
-            $("#nombreMedicamento").val(m.nombreMedicamento);
-            $("#dosis").val(m.dosis);
-            $("#fechaVencimiento").val(m.fechaVencimiento);
-
-            this.modal.show();
-        });
-    }
-
-    // -------- DELETE --------
-    eliminar(id) {
-        if (!confirm("¿Eliminar registro?")) return;
-
-        $.ajax({
-            url: `${this.api}/${id}`,
-            type: "DELETE",
-            success: () => this.listar()
-        });
-    }
-}
-
-const app = new MedicamentosApp();
+});

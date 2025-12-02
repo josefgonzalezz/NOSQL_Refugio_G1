@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conoce más - Refugio</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../Css/Index.css" rel="stylesheet">
+    <link href="../Css/Forumulario.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <nav class="nav-sitio-contenedor">
+        <div class="nav-sitio-enlaces">
+            <a href="index.html" class="nav-sitio-item">Inicio</a>
+            <a href="usuariojq.html" class="nav-sitio-item">Usuarios</a>
+            <a href="Animales.html" class="nav-sitio-item">Animales</a>
+            <a href="Adopcion.html" class="nav-sitio-item">Adopcion</a>
+            <a href="Refugio.html" class="nav-sitio-item">Refugios</a>
+            <a href="Personal.html" class="nav-sitio-item">Personal</a>
+            <a href="Eventos.html" class="nav-sitio-item">Eventos</a>
+            <a href="Medicamentos.html" class="nav-sitio-item">Medicamentos</a>
+            <a href="Donaciones.html" class="nav-sitio-item">Donaciones</a>
+            <a href="Visitas.html" class="nav-sitio-item">Visitas</a>
+            <a href="Formulario.html" class="nav-sitio-item">Conoce mas!</a>
+            <a href="contacto.html" class="nav-sitio-item">Contacto</a>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-8 text-center">
+                <h1 class="mb-3">¿Quieres conocer más sobre nuestro refugio?</h1>
+                <p class="lead">
+                    Completa el siguiente formulario y el refugio se pondrá en contacto contigo
+                    con más información sobre adopciones, voluntariado o donaciones.
+                </p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h4 class="mb-3">Formulario de interés</h4>
+
+                        <form id="formConoceMas">
+                            <div class="mb-3">
+                                <label for="idRefugioForm" class="form-label">Refugio</label>
+                                <select id="idRefugioForm" class="form-select" required>
+                                    <option value="">Seleccione un refugio</option>
+                                </select>
+                                <small class="form-text text-muted">
+                                    Refugio sobre el que deseas recibir información.
+                                </small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="idClienteForm" class="form-label">Cliente / Usuario</label>
+                                <select id="idClienteForm" class="form-select" required>
+                                    <option value="">Seleccione su nombre</option>
+                                </select>
+                                <small class="form-text text-muted">
+                                    Debes estar registrado como usuario para poder enviarnos la consulta.
+                                </small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="fechaForm" class="form-label">Fecha</label>
+                                <input type="date" id="fechaForm" class="form-control" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="calificacionForm" class="form-label">Nivel de interés</label>
+                                <select id="calificacionForm" class="form-select" required>
+                                    <option value="">Seleccione una opción</option>
+                                    <option value="1">1 - Solo estoy mirando</option>
+                                    <option value="2">2 - Tengo algo de interés</option>
+                                    <option value="3">3 - Me interesa bastante</option>
+                                    <option value="4">4 - Muy interesado</option>
+                                    <option value="5">5 - Necesito información urgente</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="comentarioForm" class="form-label">Mensaje / Comentario</label>
+                                <textarea id="comentarioForm" class="form-control" rows="4" required
+                                    placeholder="Cuéntanos en qué estás interesado: adoptar, ser voluntario, donar, etc."></textarea>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    Enviar formulario
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+                <div class="text-center mt-4 text-muted small">
+                    Al enviar este formulario se guardará un registro en la base de datos de formularios
+                    asociados al refugio y al usuario seleccionado.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer mt-5">
+        <!-- Puedes reutilizar el mismo SVG de las otras páginas si quieres -->
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/Formulario.js"></script>
+</body>
+</html>

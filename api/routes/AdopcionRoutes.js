@@ -3,6 +3,9 @@ const route = express.Router();
 
 const Adopcion = require('../models/Adopcion');
 
+// =======================================
+//  CREAR ADOPCIÓN
+// =======================================
 route.post('/', async (req, resp) => {
     const { idAnimal, idCliente, fechaAdopcion, estado, observaciones } = req.body;
 
@@ -22,7 +25,29 @@ route.post('/', async (req, resp) => {
     }
 });
 
+// =======================================
+//  OBTENER UNA ADOPCIÓN POR ID (FALTABA)
+// =======================================
+route.get('/:id', async (req, resp) => {
+    try {
+        const adopcion = await Adopcion.findById(req.params.id)
+            .populate('idAnimal')
+            .populate('idCliente');
 
+        if (!adopcion) {
+            return resp.status(404).json({ mensaje: "Adopción no encontrada" });
+        }
+
+        resp.status(200).json(adopcion);
+
+    } catch (error) {
+        resp.status(400).json({ mensaje: error.message });
+    }
+});
+
+// =======================================
+//  ACTUALIZAR ADOPCIÓN
+// =======================================
 route.put('/:id', async (req, resp) => {
     try {
         const adopcionActualizada = await Adopcion.findByIdAndUpdate(
@@ -42,7 +67,9 @@ route.put('/:id', async (req, resp) => {
     }
 });
 
-
+// =======================================
+//  ELIMINAR ADOPCIÓN
+// =======================================
 route.delete('/:id', async (req, resp) => {
     try {
         const adopcionEliminada = await Adopcion.findByIdAndDelete(req.params.id);
@@ -58,7 +85,9 @@ route.delete('/:id', async (req, resp) => {
     }
 });
 
-
+// =======================================
+//  LISTAR TODAS LAS ADOPCIONES
+// =======================================
 route.get('/', async (req, resp) => {
     try {
         const adopciones = await Adopcion.find()

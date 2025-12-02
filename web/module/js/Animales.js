@@ -1,7 +1,7 @@
 const APIURL_ANIMALES = "http://localhost:3000/api/animal/";
 const APIURL_TIPOS = "http://localhost:3000/api/tiposAnimales/";
 const APIURL_REFUGIOS = "http://localhost:3000/api/refugios/";
-const APIURL_ADOPCIONES = "http://localhost:3000/api/adopciones/";
+const APIURL_ADOPCIONES = "http://localhost:3000/api/adopcion/";
 
 let modoEdicionAnimal = false;
 let idEdicionAnimal = null;
@@ -44,9 +44,20 @@ function generarCardsAnimales(animales) {
                             <b>Salud:</b> ${animal.salud}
                         </p>
 
-                        <button class="btn btn-primary btn-sm btn-adoptar" data-id="${animal._id}">Adoptar</button>
-                        <button class="btn btn-warning btn-sm btn-editar-animal" data-id="${animal._id}">Editar</button>
-                        <button class="btn btn-danger btn-sm btn-eliminar-animal" data-id="${animal._id}">Eliminar</button>
+                        <button class="btn btn-primary btn-sm btn-adoptar-animal" 
+                                data-id="${animal._id}">
+                            Adoptar
+                        </button>
+
+                        <button class="btn btn-warning btn-sm btn-editar-animal" 
+                                data-id="${animal._id}">
+                            Editar
+                        </button>
+
+                        <button class="btn btn-danger btn-sm btn-eliminar-animal" 
+                                data-id="${animal._id}">
+                            Eliminar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -90,11 +101,16 @@ $(document).ready(function () {
     cargarRefugios();
     $("#btnCancelarAnimal").hide();
 
+    // -----------------------------
+    // GESTIÓN DE ANIMALES
+    // -----------------------------
+
     $("#btnAgregarAnimal").on("click", function () {
         cancelarEdicionAnimal();
         cargarTipos();
         cargarRefugios();
-        $("#modalAnimal").modal("show");
+        const modalAnimal = new bootstrap.Modal(document.getElementById("modalAnimal"));
+        modalAnimal.show();
     });
 
     $("#formAnimal").on("submit", function (e) {
@@ -122,7 +138,7 @@ $(document).ready(function () {
             success: function () {
                 cargarAnimales();
                 cancelarEdicionAnimal();
-                $("#modalAnimal").modal("hide");
+                bootstrap.Modal.getInstance(document.getElementById("modalAnimal")).hide();
                 alert(`Animal ${msj} correctamente`);
             },
             error: function (err) {
@@ -132,6 +148,12 @@ $(document).ready(function () {
         });
     });
 
+    $("#btnCancelarAnimal").on("click", function () {
+        cancelarEdicionAnimal();
+        bootstrap.Modal.getInstance(document.getElementById("modalAnimal")).hide();
+    });
+
+    // EDITAR
     $(document).on("click", ".btn-editar-animal", function () {
         const id = $(this).data("id");
 
@@ -139,12 +161,12 @@ $(document).ready(function () {
             type: "GET",
             url: APIURL_ANIMALES + id,
             success: function (animal) {
-                
+
                 $.when(
                     $.get(APIURL_TIPOS),
                     $.get(APIURL_REFUGIOS)
                 ).done(function(tiposResponse, refugiosResponse) {
-                    
+
                     const selectTipo = $("#animalTipo");
                     selectTipo.empty();
                     tiposResponse[0].forEach(t => {
@@ -172,17 +194,17 @@ $(document).ready(function () {
                     $("#btnSubmitAnimal").text("Actualizar");
                     $("#btnCancelarAnimal").show();
 
-                    $("#modalAnimal").modal("show");
+                    const modalAnimal = new bootstrap.Modal(document.getElementById("modalAnimal"));
+                    modalAnimal.show();
                 });
             },
-            error: function (xhr, status, error) {
-                console.error("Error al cargar animal:", error);
-                console.error("Response:", xhr.responseText);
-                alert("Error al cargar los datos del animal");
+            error: function () {
+                alert("Error al cargar el animal");
             }
         });
     });
 
+    // ELIMINAR
     $(document).on("click", ".btn-eliminar-animal", function () {
         const id = $(this).data("id");
 
@@ -195,41 +217,89 @@ $(document).ready(function () {
                 cargarAnimales();
                 alert("Animal eliminado correctamente");
             },
-            error: function() {
+            error: function () {
                 alert("Error al eliminar el animal");
             }
         });
     });
 
-    $(document).on("click", ".btn-adoptar", function () {
-        const id = $(this).data("id");
+    // -----------------------------
+    // ADOPCIONES
+    // -----------------------------
 
-        $("#adopcionAnimalId").val(id);
-        $("#modalAdopcion").modal("show");
+    // ABRIR MODAL ADOPCIÓN
+    $(document).on("click", ".btn-adoptar-animal", function () {
+        const idAnimal = $(this).data("id");
+        
+        // Limpiar el formulario primero
+        $("#formAdopcion")[0].reset();
+        
+        // Establecer el ID del animal
+        $("#idAnimalAdop").val(idAnimal);
+        
+        // Establecer la fecha actual como predeterminada
+        const hoy = new Date().toISOString().split('T')[0];
+        $("#fechaAdopcion").val(hoy);
+        
+        // Abrir el modal
+        const modalAdopcion = new bootstrap.Modal(document.getElementById("modalAdopcion"));
+        modalAdopcion.show();
     });
 
+    // GUARDAR ADOPCIÓN
     $("#formAdopcion").on("submit", function (e) {
         e.preventDefault();
 
+        const idAnimal = $("#idAnimalAdop").val();
+        const idCliente = $("#idClienteAdop").val();
+        const fechaAdopcion = $("#fechaAdopcion").val();
+        const observaciones = $("#observaciones").val();
+
+        // Validar que tengamos los datos necesarios
+        if (!idAnimal || !idCliente || !fechaAdopcion) {
+            alert("Por favor complete todos los campos requeridos");
+            return;
+        }
+
         const datos = {
-            idAnimal: $("#adopcionAnimalId").val(),
-            idUsuario: $("#adopcionUsuario").val(),
-            fecha: $("#adopcionFecha").val(),
-            observaciones: $("#adopcionObs").val()
+            idAnimal: idAnimal,
+            idCliente: idCliente,
+            fechaAdopcion: fechaAdopcion,
+            estado: "Pendiente",
+            observaciones: observaciones
         };
+
+        console.log("Enviando datos de adopción:", datos);
 
         $.ajax({
             type: "POST",
             url: APIURL_ADOPCIONES,
             data: JSON.stringify(datos),
             contentType: "application/json",
-            success: function () {
-                alert("Adopción realizada correctamente");
-                $("#modalAdopcion").modal("hide");
+            success: function (response) {
+                console.log("Adopción guardada:", response);
+                alert("Adopción registrada correctamente.");
+                
+                // Cerrar el modal
+                const modalAdopcion = bootstrap.Modal.getInstance(document.getElementById("modalAdopcion"));
+                modalAdopcion.hide();
+                
+                // Limpiar el formulario
+                $("#formAdopcion")[0].reset();
+                
+                // Recargar los animales (opcional, por si quieres mostrar cambios)
                 cargarAnimales();
             },
-            error: function () {
-                alert("Error al registrar adopción");
+            error: function (err) {
+                console.error("Error completo:", err);
+                console.error("Response text:", err.responseText);
+                
+                let mensajeError = "Error al registrar la adopción";
+                if (err.responseJSON && err.responseJSON.mensaje) {
+                    mensajeError += ": " + err.responseJSON.mensaje;
+                }
+                
+                alert(mensajeError);
             }
         });
     });

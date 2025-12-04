@@ -1,142 +1,179 @@
-$(document).ready(function () {
+const APIURL = "http://localhost:3000/api/Medicamentos/";
+const APIANIMALES = "http://localhost:3000/api/Animal/";
 
-    const API_URL = "http://localhost:3000/Medicamento";
-    const API_ANIMALES = "http://localhost:3000/Animal";
+let modoEdicion = false;
+let idEdicion = null;
 
-    cargarAnimales();
-    cargarTabla();
 
-    $("#btnNuevo").click(function () {
-        limpiarCampos();
-        $("#medId").val("");
-        $("#modalMedicamento").modal("show");
-    });
+function cargarMedicamentos() {
+    $.ajax({
+        type: "GET",
+        url: APIURL,
+        success: function (respuesta) {
+            const tbody = $("#tablaMedicamentos");
+            tbody.empty();
 
-    $("#btnGuardar").click(function () {
-        guardarMedicamento();
-    });
+            respuesta.forEach(medicamento => {
+                const idAnimal = medicamento.idAnimal?._id || medicamento.idAnimal;
 
-    function cargarAnimales() {
-        $.ajax({
-            url: API_ANIMALES,
-            method: "GET",
-            success: function (data) {
-                let opciones = `<option value="">Seleccione un animal</option>`;
-
-                data.forEach(a => {
-                    opciones += `<option value="${a._id}">${a.nombre}</option>`;
-                });
-
-                $("#idAnimal").html(opciones);
-            }
-        });
-    }
-
-    function cargarTabla() {
-        $.ajax({
-            url: API_URL,
-            method: "GET",
-            success: function (data) {
-                let filas = "";
-
-                data.forEach(m => {
-                    filas += `
-                        <tr>
-                            <td>${m.idAnimal?.nombre ?? "SIN NOMBRE"}</td>
-                            <td>${m.nombreMedicamento}</td>
-                            <td>${m.dosis}</td>
-                            <td>${m.fechaVencimiento}</td>
-                            <td>
-                                <button class="btn btn-warning btn-sm btnEditar" data-id="${m._id}">Editar</button>
-                                <button class="btn btn-danger btn-sm btnEliminar" data-id="${m._id}">Eliminar</button>
-                            </td>
-                        </tr>
-                    `;
-                });
-
-                $("#tablaMedicamentos").html(filas);
-
-                $(".btnEditar").click(cargarMedicamentoEditar);
-                $(".btnEliminar").click(eliminarMedicamento);
-            }
-        });
-    }
-
-    function guardarMedicamento() {
-        const id = $("#medId").val();
-
-        const data = {
-            idAnimal: $("#idAnimal").val(),
-            nombreMedicamento: $("#nombreMedicamento").val(),
-            dosis: $("#dosis").val(),
-            fechaVencimiento: $("#fechaVencimiento").val()
-        };
-
-        if (!data.idAnimal || !data.nombreMedicamento || !data.dosis || !data.fechaVencimiento) {
-            alert("Todos los campos son obligatorios.");
-            return;
+                tbody.append(`
+                    <tr>
+                        <td>${medicamento._id}</td>
+                        <td>${idAnimal}</td>
+                        <td>${medicamento.nombreMedicamento}</td>
+                        <td>${medicamento.dosis}</td>
+                        <td>${medicamento.fechaVencimiento}</td>
+                        <td>
+                            <button class="btn btn-primary btn-editar" data-id="${medicamento._id}">
+                                Editar
+                            </button>
+                            <button class="btn btn-danger btn-eliminar" data-id="${medicamento._id}">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                `);
+            });
+        },
+        error: function () {
+            alert("Error al cargar medicamentos");
         }
+    });
+}
 
-        const metodo = id ? "PUT" : "POST";
-        const url = id ? `${API_URL}/${id}` : API_URL;
 
+function cargarAnimales() {
+    $.ajax({
+        type: "GET",
+        url: APIANIMALES,
+        success: function (animales) {
+            const select = $("#idAnimal");
+            select.empty();
+            select.append(`<option value="">Seleccione un animal</option>`);
+
+            animales.forEach(animal => {
+                select.append(`
+                    <option value="${animal._id}">
+                        ${animal._id}
+                    </option>
+                `);
+            });
+        },
+        error: function () {
+            alert("Error al cargar animales");
+        }
+    });
+}
+
+// ==================
+// NUEVO MEDICAMENTO
+// ==================
+$("#btnNuevo").on("click", function () {
+    modoEdicion = false;
+    idEdicion = null;
+
+    $("#medicamentoFormulario")[0].reset();
+    $("#btnGuardar").text("Guardar");
+
+    const modal = new bootstrap.Modal(document.getElementById("modalMedicamento"));
+    modal.show();
+});
+
+// ==================
+// GUARDAR / EDITAR
+// ==================
+$("#medicamentoFormulario").on("submit", function (e) {
+    e.preventDefault();
+
+    const datos = {
+        idAnimal: $("#idAnimal").val(),
+        nombreMedicamento: $("#nombreMedicamento").val(),
+        dosis: $("#dosis").val(),
+        fechaVencimiento: $("#fechaVencimiento").val()
+    };
+
+    if (modoEdicion) {
         $.ajax({
-            url: url,
-            method: metodo,
-            data: JSON.stringify(data),
+            type: "PUT",
+            url: APIURL + idEdicion,
+            data: JSON.stringify(datos),
             contentType: "application/json",
             success: function () {
-                alert("Medicamento guardado correctamente.");
+                cargarMedicamentos();
                 $("#modalMedicamento").modal("hide");
-                cargarTabla();
-            },
-            error: function () {
-                alert("Error al guardar el medicamento.");
+                alert("Medicamento actualizado");
             }
         });
-    }
-
-    function cargarMedicamentoEditar() {
-        const id = $(this).data("id");
-
+    } else {
         $.ajax({
-            url: `${API_URL}/${id}`,
-            method: "GET",
-            success: function (m) {
-                $("#medId").val(m._id);
-                $("#idAnimal").val(m.idAnimal?._id);
-                $("#nombreMedicamento").val(m.nombreMedicamento);
-                $("#dosis").val(m.dosis);
-                $("#fechaVencimiento").val(m.fechaVencimiento);
-
-                $("#modalMedicamento").modal("show");
-            }
-        });
-    }
-
-    function eliminarMedicamento() {
-        const id = $(this).data("id");
-
-        if (!confirm("¿Seguro que deseas eliminar este medicamento?")) return;
-
-        $.ajax({
-            url: `${API_URL}/${id}`,
-            method: "DELETE",
+            type: "POST",
+            url: APIURL,
+            data: JSON.stringify(datos),
+            contentType: "application/json",
             success: function () {
-                alert("Medicamento eliminado correctamente.");
-                cargarTabla();
-            },
-            error: function () {
-                alert("No se pudo eliminar.");
+                cargarMedicamentos();
+                $("#modalMedicamento").modal("hide");
+                alert("Medicamento guardado");
             }
         });
     }
-
-    function limpiarCampos() {
-        $("#idAnimal").val("");
-        $("#nombreMedicamento").val("");
-        $("#dosis").val("");
-        $("#fechaVencimiento").val("");
-    }
-
 });
+
+// ==================
+// EDITAR
+// ==================
+$(document).on("click", ".btn-editar", function () {
+    const id = $(this).data("id");
+
+    $.ajax({
+        type: "GET",
+        url: APIURL + id,
+        success: function (medicamento) {
+            $("#idAnimal").val(medicamento.idAnimal?._id || medicamento.idAnimal);
+            $("#nombreMedicamento").val(medicamento.nombreMedicamento);
+            $("#dosis").val(medicamento.dosis);
+            $("#fechaVencimiento").val(medicamento.fechaVencimiento);
+
+            modoEdicion = true;
+            idEdicion = id;
+
+            $("#btnGuardar").text("Actualizar");
+
+            const modal = new bootstrap.Modal(document.getElementById("modalMedicamento"));
+            modal.show();
+        }
+    });
+});
+
+// ==================
+// ELIMINAR
+// ==================
+$(document).on("click", ".btn-eliminar", function () {
+    const id = $(this).data("id");
+
+    if (confirm("¿Desea eliminar este medicamento?")) {
+        $.ajax({
+            type: "DELETE",
+            url: APIURL + id,
+            success: function () {
+                cargarMedicamentos();
+                alert("Medicamento eliminado");
+            }
+        });
+    }
+});
+
+// ==================
+// CANCELAR
+// ==================
+$("#btnCancelar").on("click", function () {
+    $("#modalMedicamento").modal("hide");
+    modoEdicion = false;
+    idEdicion = null;
+});
+
+// ==================
+// INICIO
+// ==================
+cargarMedicamentos();
+cargarAnimales();

@@ -51,12 +51,10 @@ html {
 body{
     background-color: var(--blanco);
     font-size: 16px; /* 1rem = 10px */
-    font-family: "Montserrat", serif;
     
 
 
 }
-
 
 
 
@@ -67,99 +65,142 @@ body{
 
 
 .nav-sitio-contenedor {
-    background-color: #274001; 
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    width: auto;
+    width: 100%;
+    background-color: #1c3104;
+    padding: 15px 0;
+    position: relative;           /* evita que el dropdown rompa el flujo */
+    z-index: 1000;
 }
 
 .nav-sitio-enlaces {
+    max-width: 1500px;
+    margin: 0 auto;
     display: flex;
-    gap: 2.5rem; 
+    align-items: center;
+    gap: 25px;
+    padding: 0 25px;
 }
 
 .nav-sitio-item {
     color: white;
     text-decoration: none;
-    font-size: 35px;
-    padding: 0.5rem 0;
-    transition: color 0.3s ease-in-out;
-    position: relative; /* Para el efecto de la línea inferior */
+    font-size: 28px;
 }
 
-.nav-sitio-item:hover,
-.nav-sitio-item.activo {
-    color: #a8d540; /* Color de hover o del elemento activo */
-}
-
-/* Efecto de línea inferior al hacer hover */
-.nav-sitio-item::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #a8d540;
-    transition: width 0.3s ease-in-out;
-}
-
-.nav-sitio-item:hover::after,
-.nav-sitio-item.activo::after {
-    width: 100%;
+.nav-sitio-item:hover {
+    color: #a8d540;
 }
 
 
-.nav-sitio-boton-menu {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 5rem;
+/* ----------------------------- */
+/* DROPDOWN */
+/* ----------------------------- */
+
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-btn {
+    background: none !important;
+    border: none !important;
+    color: white !important;
+    font-size: 28px !important;
+    padding: 0 !important;
+    margin: 0 !important;
     cursor: pointer;
-    display: none; /* Oculto por defecto en escritorio */
+    box-shadow: none !important;
+    border-radius: 0 !important;
 }
 
+.nav-btn:hover {
+    color: #a8d540 !important;
+}
+
+.nav-dropdown-contenido {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #385709;
+    min-width: 210px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    z-index: 1500;   /* sobre navbar */
+    flex-direction: column;
+}
+
+.nav-dropdown-contenido a {
+    color: white;
+    padding: 0.7rem 1rem;
+    text-decoration: none;
+    display: block;
+    font-size: 20px;
+}
+
+.nav-dropdown-contenido a:hover {
+    background-color: #2d4507;
+}
+
+.nav-dropdown:hover .nav-dropdown-contenido {
+    display: block;
+}
+
+
+/* ----------------------------- */
+/* EVITA QUE LOS ESTILOS GLOBALES AFECTEN EL NAV */
+/* ----------------------------- */
+
+nav a,
+.nav-sitio-contenedor a,
+.nav-dropdown * {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: normal;
+}
+
+
+/* ----------------------------- */
+/* CONTENEDOR GENERAL */
+/* ----------------------------- */
+
+.contenedor {
+    max-width: 1500px;
+    margin: 0 auto;
+    border-radius: 30px;
+}
+
+
+/* ----------------------------- */
+/* MODO RESPONSIVE */
+/* ----------------------------- */
 
 @media (max-width: 768px) {
-    
-    .nav-sitio-contenedor {
-        /* Asegura que la navegación ocupe todo el ancho */
-        padding: 1rem 1.5rem;
-    }
 
-    .nav-sitio-boton-menu {
-        display: block; /* Muestra el botón de hamburguesa */
-    }
-
-    /* Oculta los enlaces en dispositivos móviles por defecto */
     .nav-sitio-enlaces {
-        position: absolute;
-        top: 100%; /* Justo debajo del navbar */
-        left: 0;
-        right: 0;
-        background-color: #385709; /* Fondo diferente para el menú desplegable */
         flex-direction: column;
-        display: none; /* Oculto inicialmente con CSS */
+        gap: 15px;
+        padding: 10px 0;
+    }
+
+    .nav-dropdown {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-dropdown-btn {
         width: 100%;
         padding: 1rem 0;
-        z-index: 10;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
-    /* Estilo para los enlaces apilados */
-    .nav-sitio-enlaces a {
-        text-align: center;
-        padding: 1rem 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .nav-sitio-enlaces a:last-child {
-        border-bottom: none;
+    .nav-dropdown-contenido {
+        position: relative;
+        box-shadow: none;
+        background-color: #2d4507;
+        width: 100%;
     }
 
-    /* Clase que se activa con JavaScript para mostrar el menú */
-    .nav-sitio-enlaces.nav-sitio-visible {
-        display: flex;
+    .nav-dropdown-contenido a {
+        border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 }
 

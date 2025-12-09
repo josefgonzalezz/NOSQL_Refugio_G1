@@ -3,7 +3,7 @@ const route = express.Router();
 
 const DireccionRefugio = require('../models/DireccionRefugio');
 
-// Crear dirección (independiente)
+
 route.post('/', async (req, resp) => {
     const {
         idRefugio,
@@ -29,7 +29,7 @@ route.post('/', async (req, resp) => {
     }
 });
 
-// Actualizar dirección
+
 route.put('/:id', async (req, resp) => {
     try {
         const actualizado = await DireccionRefugio.findByIdAndUpdate(
@@ -48,7 +48,7 @@ route.put('/:id', async (req, resp) => {
     }
 });
 
-// Eliminar dirección
+
 route.delete('/:id', async (req, resp) => {
     try {
         const eliminado = await DireccionRefugio.findByIdAndDelete(req.params.id);
@@ -63,7 +63,7 @@ route.delete('/:id', async (req, resp) => {
     }
 });
 
-// Obtener todas las direcciones
+
 route.get('/', async (req, resp) => {
     try {
         const datos = await DireccionRefugio.find().populate('idRefugio');
@@ -73,7 +73,6 @@ route.get('/', async (req, resp) => {
     }
 });
 
-// Obtener una dirección específica
 route.get('/:id', async (req, resp) => {
     try {
         const dato = await DireccionRefugio.findById(req.params.id).populate('idRefugio');

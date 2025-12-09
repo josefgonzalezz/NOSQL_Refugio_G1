@@ -32,11 +32,16 @@ const AnimalSchema = new mongoose.Schema(
         salud: {
             type: String,
             required: true
+        },
+        ruta_imagen: {
+            type: String,
+            required: false, 
+            default: null
         }
     },
     {
-    collection: "Animales"
-  }
+      collection: "Animales"
+    }
 );
 
 module.exports = mongoose.model('Animal', AnimalSchema);

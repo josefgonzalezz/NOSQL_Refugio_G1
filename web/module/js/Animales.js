@@ -33,6 +33,10 @@ function generarCardsAnimales(animales) {
         contenedor.append(`
             <div class="col-md-4 mb-3">
                 <div class="card shadow">
+                    <img src="${animal.ruta_imagen || 'https://via.placeholder.com/300'}"
+                         class="card-img-top"
+                         style="height: 200px; object-fit: cover;">
+
                     <div class="card-body">
                         <h5 class="card-title">${animal.nombre}</h5>
 
@@ -101,10 +105,6 @@ $(document).ready(function () {
     cargarRefugios();
     $("#btnCancelarAnimal").hide();
 
-    // -----------------------------
-    // GESTIÓN DE ANIMALES
-    // -----------------------------
-
     $("#btnAgregarAnimal").on("click", function () {
         cancelarEdicionAnimal();
         cargarTipos();
@@ -123,7 +123,8 @@ $(document).ready(function () {
             sexo: $("#animalSexo").val(),
             salud: $("#animalSalud").val(),
             idTipo: $("#animalTipo").val(),
-            idRefugio: $("#animalRefugio").val()
+            idRefugio: $("#animalRefugio").val(),
+            ruta_imagen: $("#animalImagen").val()
         };
 
         const tipo = modoEdicionAnimal ? "PUT" : "POST";
@@ -153,7 +154,7 @@ $(document).ready(function () {
         bootstrap.Modal.getInstance(document.getElementById("modalAnimal")).hide();
     });
 
-    // EDITAR
+
     $(document).on("click", ".btn-editar-animal", function () {
         const id = $(this).data("id");
 
@@ -186,6 +187,7 @@ $(document).ready(function () {
                     $("#animalSalud").val(animal.salud);
                     $("#animalTipo").val(animal.idTipo?._id || animal.idTipo);
                     $("#animalRefugio").val(animal.idRefugio?._id || animal.idRefugio);
+                    $("#animalImagen").val(animal.ruta_imagen || ""); // 👉 NUEVO
 
                     modoEdicionAnimal = true;
                     idEdicionAnimal = id;
@@ -204,7 +206,7 @@ $(document).ready(function () {
         });
     });
 
-    // ELIMINAR
+
     $(document).on("click", ".btn-eliminar-animal", function () {
         const id = $(this).data("id");
 
@@ -223,30 +225,20 @@ $(document).ready(function () {
         });
     });
 
-    // -----------------------------
-    // ADOPCIONES
-    // -----------------------------
 
-    // ABRIR MODAL ADOPCIÓN
     $(document).on("click", ".btn-adoptar-animal", function () {
         const idAnimal = $(this).data("id");
         
-        // Limpiar el formulario primero
         $("#formAdopcion")[0].reset();
-        
-        // Establecer el ID del animal
         $("#idAnimalAdop").val(idAnimal);
-        
-        // Establecer la fecha actual como predeterminada
+
         const hoy = new Date().toISOString().split('T')[0];
         $("#fechaAdopcion").val(hoy);
-        
-        // Abrir el modal
+
         const modalAdopcion = new bootstrap.Modal(document.getElementById("modalAdopcion"));
         modalAdopcion.show();
     });
 
-    // GUARDAR ADOPCIÓN
     $("#formAdopcion").on("submit", function (e) {
         e.preventDefault();
 
@@ -255,21 +247,18 @@ $(document).ready(function () {
         const fechaAdopcion = $("#fechaAdopcion").val();
         const observaciones = $("#observaciones").val();
 
-        // Validar que tengamos los datos necesarios
         if (!idAnimal || !idCliente || !fechaAdopcion) {
             alert("Por favor complete todos los campos requeridos");
             return;
         }
 
         const datos = {
-            idAnimal: idAnimal,
-            idCliente: idCliente,
-            fechaAdopcion: fechaAdopcion,
+            idAnimal,
+            idCliente,
+            fechaAdopcion,
             estado: "Pendiente",
-            observaciones: observaciones
+            observaciones
         };
-
-        console.log("Enviando datos de adopción:", datos);
 
         $.ajax({
             type: "POST",
@@ -277,28 +266,16 @@ $(document).ready(function () {
             data: JSON.stringify(datos),
             contentType: "application/json",
             success: function (response) {
-                console.log("Adopción guardada:", response);
                 alert("Adopción registrada correctamente.");
-                
-                // Cerrar el modal
-                const modalAdopcion = bootstrap.Modal.getInstance(document.getElementById("modalAdopcion"));
-                modalAdopcion.hide();
-                
-                // Limpiar el formulario
+                bootstrap.Modal.getInstance(document.getElementById("modalAdopcion")).hide();
                 $("#formAdopcion")[0].reset();
-                
-                // Recargar los animales (opcional, por si quieres mostrar cambios)
                 cargarAnimales();
             },
             error: function (err) {
-                console.error("Error completo:", err);
-                console.error("Response text:", err.responseText);
-                
                 let mensajeError = "Error al registrar la adopción";
-                if (err.responseJSON && err.responseJSON.mensaje) {
+                if (err.responseJSON?.mensaje) {
                     mensajeError += ": " + err.responseJSON.mensaje;
                 }
-                
                 alert(mensajeError);
             }
         });

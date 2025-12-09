@@ -13,7 +13,6 @@
     <div class="nav-sitio-enlaces">
         <a href="index.html" class="nav-sitio-item">Inicio</a>
 
-        <!-- Dropdown -->
         <div class="nav-dropdown">
 <button class="nav-dropdown-btn nav-btn">Menú</button>
             <div class="nav-dropdown-contenido">
@@ -45,12 +44,10 @@
 
     <br>
 
-    <!-- BOTÓN NUEVO -->
     <button id="btnNuevo" class="boton-registro-adopciones">
         Registrar Medicamento
     </button>
 
-    <!-- MODAL -->
     <div class="modal fade" id="modalMedicamento" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content contenedor-modal-adopciones">
@@ -65,31 +62,26 @@
                 <div class="modal-body cuerpo-modal-adopciones">
                     <form id="medicamentoFormulario">
 
-                        <!-- ANIMAL -->
                         <div class="mb-3">
                             <label class="form-label">Animal</label>
                             <select id="idAnimal" class="form-select" required></select>
                         </div>
 
-                        <!-- NOMBRE -->
                         <div class="mb-3">
                             <label class="form-label">Nombre del Medicamento</label>
                             <input type="text" id="nombreMedicamento" class="form-control" required>
                         </div>
 
-                        <!-- DOSIS -->
                         <div class="mb-3">
                             <label class="form-label">Dosis</label>
                             <input type="text" id="dosis" class="form-control" required>
                         </div>
 
-                        <!-- FECHA -->
                         <div class="mb-3">
                             <label class="form-label">Fecha de Vencimiento</label>
                             <input type="date" id="fechaVencimiento" class="form-control" required>
                         </div>
 
-                        <!-- BOTONES -->
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-success" id="btnGuardar">Guardar</button>
                             <button type="button" class="btn btn-secondary" id="btnCancelar">Cancelar</button>
@@ -102,7 +94,6 @@
         </div>
     </div>
 
-    <!-- TABLA -->
     <div class="table-responsive mt-5">
         <table class="table table-striped">
             <thead>
@@ -121,7 +112,6 @@
 
 </div>
 
-<!-- SCRIPTS -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../js/Medicamentos.js"></script>

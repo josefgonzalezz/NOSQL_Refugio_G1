@@ -65,9 +65,6 @@ function cargarAnimales() {
     });
 }
 
-// ==================
-// NUEVO MEDICAMENTO
-// ==================
 $("#btnNuevo").on("click", function () {
     modoEdicion = false;
     idEdicion = null;
@@ -79,9 +76,6 @@ $("#btnNuevo").on("click", function () {
     modal.show();
 });
 
-// ==================
-// GUARDAR / EDITAR
-// ==================
 $("#medicamentoFormulario").on("submit", function (e) {
     e.preventDefault();
 
@@ -119,9 +113,6 @@ $("#medicamentoFormulario").on("submit", function (e) {
     }
 });
 
-// ==================
-// EDITAR
-// ==================
 $(document).on("click", ".btn-editar", function () {
     const id = $(this).data("id");
 
@@ -144,10 +135,6 @@ $(document).on("click", ".btn-editar", function () {
         }
     });
 });
-
-// ==================
-// ELIMINAR
-// ==================
 $(document).on("click", ".btn-eliminar", function () {
     const id = $(this).data("id");
 
@@ -163,17 +150,11 @@ $(document).on("click", ".btn-eliminar", function () {
     }
 });
 
-// ==================
-// CANCELAR
-// ==================
 $("#btnCancelar").on("click", function () {
     $("#modalMedicamento").modal("hide");
     modoEdicion = false;
     idEdicion = null;
 });
 
-// ==================
-// INICIO
-// ==================
 cargarMedicamentos();
 cargarAnimales();

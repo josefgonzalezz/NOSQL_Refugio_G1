@@ -3,9 +3,9 @@ const route = express.Router();
 
 const Animal = require('../models/Animal');
 
-
+// Crear animal
 route.post('/', async (req, resp) => {
-    const { idTipo, idRefugio, nombre, edad, raza, sexo, salud } = req.body;
+    const { idTipo, idRefugio, nombre, edad, raza, sexo, salud, ruta_imagen } = req.body;
 
     const nuevoAnimal = new Animal({
         idTipo,
@@ -14,7 +14,8 @@ route.post('/', async (req, resp) => {
         edad,
         raza,
         sexo,
-        salud
+        salud,
+        ruta_imagen 
     });
 
     try {
@@ -26,7 +27,6 @@ route.post('/', async (req, resp) => {
 });
 
 
-// Actualizar animal
 route.put('/:id', async (req, resp) => {
     try {
         const animalActualizado = await Animal.findByIdAndUpdate(
@@ -89,6 +89,5 @@ route.get('/:id', async (req, resp) => {
         resp.status(500).json({ mensaje: error.message });
     }
 });
-
 
 module.exports = route;

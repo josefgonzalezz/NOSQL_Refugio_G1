@@ -2,7 +2,6 @@ const express = require('express');
 const route = express.Router();
 const Evento = require('../models/Evento');
 
-// CREAR EVENTO
 route.post('/', async (req, resp) => {
     const { idRefugio, fecha, hora, motivo, comentario } = req.body;
 
